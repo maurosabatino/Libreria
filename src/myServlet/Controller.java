@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Carrello;
+import model.Catalogo;
 import model.Utente;
 
 
@@ -97,6 +98,23 @@ public class Controller extends HttpServlet {
 		
 		if(operazione.equals("logout")){
 			session.invalidate();
+		}
+		
+		
+		if(operazione.equals("search")){
+			System.out.println("non mi blocco 1");
+			Catalogo catalogo = new Catalogo();
+			System.out.println("non mi blocco 2");
+			String titolo = request.getParameter("titolo");
+			System.out.println("non mi blocco 3");
+			String autore = request.getParameter("autore");
+			System.out.println("non mi blocco 4");
+			catalogo.search(titolo, autore);
+			System.out.println("non mi blocco 5");
+			request.setAttribute("catalogo", catalogo);
+			System.out.println("non mi blocco 6");
+			forward(request,response,"/visualizzaCerca.jsp");
+			System.out.println("non mi blocco 7");
 		}
 
 	}

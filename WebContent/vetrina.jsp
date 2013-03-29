@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
  <jsp:useBean id="carrello" scope="session" class="model.Carrello"/>
- <jsp:useBean id="operazioni" scope="request" class="model.Operazioni"></jsp:useBean>
+ <jsp:useBean id="operazioni" scope="request" class="model.Catalogo"></jsp:useBean>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
