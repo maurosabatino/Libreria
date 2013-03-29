@@ -9,8 +9,12 @@
 <title>carrello</title>
 </head>
 <body>
-siamo nel carrello
+
+<form action="/Libreria2/Controller" name="compra" method="post">
 <jsp:getProperty property="visualizzacarrello" name="carrello"/>
 <p>il totale è: <jsp:getProperty property="totale" name="carrello"/></p>
+<input type="hidden" name="operazione" value="compra">
+<p><input type="submit" name ="submit" value="compra"></p>
+</form>
 </body>
 </html>

@@ -29,7 +29,7 @@ public class Controller extends HttpServlet {
      */
     public Controller() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
@@ -39,7 +39,6 @@ public class Controller extends HttpServlet {
 		try {
 			processRequest(request,response);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -62,14 +61,14 @@ public class Controller extends HttpServlet {
 		
 		 //operazione di login
 		if(operazione.equals("login")){
-			Utente u = new Utente();
+			Utente utente = new Utente();
 			String user = request.getParameter("user");
 			String password = request.getParameter("password");
-			u.setUser(user);
-			u.setPassword(password);
-			session.setAttribute("utente", u);
-			if(u.Autenticazione()){
-				if(u.getRuolo().equals("user")){
+			utente.setUser(user);
+			utente.setPassword(password);
+			session.setAttribute("utente", utente);
+			if(utente.Autenticazione()){
+				if(utente.getRuolo().equals("user")){
 					forward(request, response,"/user.jsp");
 				}else{
 					forward(request, response,"/admin.jsp");
@@ -84,10 +83,13 @@ public class Controller extends HttpServlet {
 			forward(request,response,"/visualizza.jsp");
 		}//fine operazione visualizza
 		
+		
+		/*------------------operaioni sul carrello---------------------------------------------------------------*/
+		
 		//operazione aggiungi al carrello
 		if(operazione.equals("aggiungialcarrello")){
 			Carrello carrello = (Carrello)session.getAttribute("carrello");
-			if(carrello==null) carrello = new Carrello(); //il carrello è vuoto, è nuovo!
+			if(carrello==null) carrello = new Carrello(); 
 			int id = Integer.parseInt(request.getParameter("id"));
 			carrello.aggiungiLibro(id);
 			System.out.println(carrello.Visualizzacarrello());
@@ -95,26 +97,41 @@ public class Controller extends HttpServlet {
 			forward(request,response,"/vetrina.jsp");
 		}//fine operazione aggiungi al carrello
 		
+		if(operazione.equals("compra")){
+			Carrello carrello = (Carrello)session.getAttribute("carrello");
+			Utente utente =(Utente)session.getAttribute("utente");
+			String username = utente.getUser();
+			carrello.compra(username);
+			forward(request,response,"/prenotazione.jsp");
+		}
+		
+		/*-----------------fine operazione sul carrello-----------------------------------------------------------*/
+			
+		
+		/*-----------------operazioni di amministratore-----------------------------------------------------------*/
+		
+		if(operazione.equals("inserisciLibro")){
+			Catalogo catalogo = new Catalogo();
+			String titolo = (String)request.getParameter("titolo");
+			String autore = (String)request.getParameter("autore");
+			Double prezzo = Double.parseDouble((String)request.getParameter("prezzo"));
+			catalogo.inserisciLibro(titolo, autore, prezzo);
+			request.setAttribute("catalogo", catalogo);
+			forward(request,response,"/visualizza.jsp");
+		}
+		
+		/*-----------------fine operazioni di amministratore------------------------------------------------------*/
+		if(operazione.equals("search")){
+			Catalogo catalogo = new Catalogo();
+			String titolo = request.getParameter("titolo");
+			String autore = request.getParameter("autore");
+			catalogo.search(titolo, autore);
+			request.setAttribute("catalogo", catalogo);
+			forward(request,response,"/visualizzaCerca.jsp");
+		}
 		
 		if(operazione.equals("logout")){
 			session.invalidate();
-		}
-		
-		
-		if(operazione.equals("search")){
-			System.out.println("non mi blocco 1");
-			Catalogo catalogo = new Catalogo();
-			System.out.println("non mi blocco 2");
-			String titolo = request.getParameter("titolo");
-			System.out.println("non mi blocco 3");
-			String autore = request.getParameter("autore");
-			System.out.println("non mi blocco 4");
-			catalogo.search(titolo, autore);
-			System.out.println("non mi blocco 5");
-			request.setAttribute("catalogo", catalogo);
-			System.out.println("non mi blocco 6");
-			forward(request,response,"/visualizzaCerca.jsp");
-			System.out.println("non mi blocco 7");
 		}
 
 	}

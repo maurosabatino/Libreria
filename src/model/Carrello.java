@@ -32,6 +32,8 @@ public class Carrello {
 	public double getTotale(){
 		return totale;
 	}
+	
+	
 	public boolean aggiungiLibro(int id) throws SQLException{
 		Libro libro = cercaLibro(id);	
 		if(libro!=null){
@@ -63,6 +65,7 @@ public class Carrello {
 			libro.setAutore(rs.getString("AUTORE"));
 			libro.setPrezzo(rs.getDouble("PREZZO"));
 		}
+		rs.close(); st.close(); conn.close();
 		return libro;
 	}
 	
@@ -87,6 +90,37 @@ public class Carrello {
 		for(int i=0;i<carrello.size();i++){
 			out+="titolo: "+ carrello.get(i).getTitolo() + "autore: "+ carrello.get(i).getAutore() +"prezzo: " + carrello.get(i).getPrezzo() +"\n";
 		}
+		return out;
+	}
+	
+	public void compra(String username) throws SQLException{
+		String url = "jdbc:derby://localhost:1527/c:/Database;";
+		String user = "app";
+		String pwd = "app";
+		Connection conn = DriverManager.getConnection(url,user,pwd);
+		Statement st = conn.createStatement();
+		if(carrello!=null){
+			for(int i = 0;i<carrello.size();i++){	
+				st.executeUpdate("INSERT INTO PRENOTAZIONI(UTENTE,TITOLO,AUTORE,PREZZO) VALUES('"+username+"','"+carrello.get(i).getTitolo()+"'," +
+						"'"+carrello.get(i).getAutore()+"',"+carrello.get(i).getPrezzo()+")");
+			}
+		}
+		st.close(); conn.close();
+	}
+	public String getVisualizzaprenotazione() throws SQLException{
+		String url = "jdbc:derby://localhost:1527/c:/Database;";
+		String user = "app";
+		String pwd = "app";
+		Connection conn = DriverManager.getConnection(url,user,pwd);
+		Statement st = conn.createStatement();
+		String out="";
+		ResultSet rs =st.executeQuery("SELECT * FROM prenotazioni");
+		out+="<table border=2> <tr><th>Utente</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		while(rs.next()){
+			out+="<tr><td> "+ rs.getString("UTENTE") + "</td><td> "+ rs.getString("TITOLO") +"</td> <td> " + rs.getString("AUTORE") +"</td> <td>"+rs.getDouble("PREZZO")+"</tr>";
+		}
+		out+="</table";
+		rs.close(); st.close(); conn.close();	
 		return out;
 	}
 }

@@ -89,6 +89,16 @@ public class Catalogo {
 		    return catalogo;
 	}
 	
+	public void inserisciLibro(String titolo,String autore,Double prezzo) throws SQLException{
+		String url = "jdbc:derby://localhost:1527/c:/Database;";
+		String user = "app";
+		String pwd = "app";
+		Connection conn = DriverManager.getConnection(url,user,pwd);
+		Statement st = conn.createStatement();
+		st.executeUpdate("INSERT INTO LIBRI (TITOLO, AUTORE, PREZZO) VALUES ('"+titolo+"', '"+autore+"', "+prezzo+")");
+		st.close(); conn.close();
+	}
+	
 	
 	public String getVisualizzasearch(){
 		String out="\n lista dei libri cercati:";

@@ -16,5 +16,7 @@ Login:
 <p><input type="submit" name ="submit" value="OK"></p>
 </form>
 <a href="Controller?operazione=visualizzaLibri">visulizza libri</a>
+
+<p><jsp:include page="cerca.jsp" flush="true"></jsp:include></p>
 </body>
 </html>

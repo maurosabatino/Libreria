@@ -10,6 +10,6 @@
 sono utente
 operazioni disponibili: 
 <a href="Controller?operazione=visualizzaLibri">visulizza libri</a>
-<a href="vetrina.jsp">aggiungi al carrello</a>
+<a href="vetrina.jsp">compra un libro</a>
 </body>
 </html>
