@@ -35,9 +35,9 @@ public class Catalogo {
 		Statement st = conn.createStatement();
 		String out="";
 		ResultSet rs =st.executeQuery("SELECT * FROM libri");
-		out+="<table border=2> <tr><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table border=2> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		while(rs.next()){
-			out+="<tr><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO") +"</td></tr>";
+			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO") +"</td></tr>";
 		}
 		out+="</table";
 		rs.close(); st.close(); conn.close();	

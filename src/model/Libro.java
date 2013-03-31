@@ -37,4 +37,8 @@ public class Libro {
 	public void setPrezzo(double prezzo){
 		this.prezzo=prezzo;
 	}
+	public String toString(){
+		String out=""+id+","+titolo+","+autore+","+prezzo+"";
+		return out;
+	}
 }

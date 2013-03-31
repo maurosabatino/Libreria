@@ -101,10 +101,25 @@ public class Controller extends HttpServlet {
 			Carrello carrello = (Carrello)session.getAttribute("carrello");
 			Utente utente =(Utente)session.getAttribute("utente");
 			String username = utente.getUser();
-			carrello.compra(username);
+			carrello.setUsername(username);
+			carrello.compra();
 			forward(request,response,"/prenotazione.jsp");
 		}
-		
+		if(operazione.equals("rimuovi_pre")){
+			int codice = Integer.parseInt(request.getParameter("cod"));
+			String username = (String)session.getAttribute("username");
+			System.out.println(""+codice+" "+username);
+			Carrello carrello = (Carrello)session.getAttribute("carrello");
+			if(carrello==null)
+				carrello = new Carrello();
+			System.out.println(""+codice+" "+username);
+			carrello.rimuoviPrenotazioni(codice, username);
+			System.out.println(""+codice+" "+username);
+			session.setAttribute("carrello", carrello);
+			session.setAttribute("username", username);
+			forward(request, response, "/Prenotazioni.jsp");
+		}
+				
 		/*-----------------fine operazione sul carrello-----------------------------------------------------------*/
 			
 		
@@ -132,6 +147,7 @@ public class Controller extends HttpServlet {
 		
 		if(operazione.equals("logout")){
 			session.invalidate();
+			
 		}
 
 	}
