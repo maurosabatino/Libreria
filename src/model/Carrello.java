@@ -14,7 +14,6 @@ public class Carrello {
 
 	private ArrayList<Libro> carrello; 
 	private double totale; 
-	
 	private String username;
 	
 	
@@ -112,10 +111,13 @@ public class Carrello {
 		Statement st = conn.createStatement();
 		if(carrello!=null){
 			st.executeUpdate("INSERT INTO PRENOTAZIONI (USERNAME, ORDINE, DATA, TOTALE, EVASO) VALUES ('"+username+"', '"+toString()+"', '2001/01/01', "+totale+", 0)"); 
+			svuota();
 		}
 		st.close(); conn.close();
 	}
-	
+	public void svuota(){
+		carrello = new ArrayList<Libro>();
+	}
 	public String toString(){
 		String out="";
 		for(int i=0; i<carrello.size(); i++)
@@ -123,14 +125,14 @@ public class Carrello {
 			
 		return out;
 	}
-	public void rimuoviPrenotazioni(int cod, String username){
+	public void rimuoviPrenotazioni(int cod){
 		try{
 			String url = "jdbc:derby://localhost:1527/c:/Database;";
 			String user = "app";
 			String pwd = "app";
 		    Connection conn = DriverManager.getConnection(url, user, pwd);
 		    Statement st = conn.createStatement();
-		    st.executeUpdate("DELETE FROM PRENOTAZIONI WHERE USERNAME='"+username+"' AND COD="+cod);
+		    st.executeUpdate("DELETE FROM PRENOTAZIONI WHERE USERNAME='"+username+"' AND COD="+cod+"");
 		    st.close();
 		    conn.close();
 		}catch(SQLException e){ System.out.println(e.getMessage());}
@@ -148,7 +150,7 @@ public class Carrello {
 		    
 		while (rs.next()){
 			if((Integer.parseInt(rs.getString("EVASO")))==0){
-				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
+				prenotazioni +="<br> Ordine"+rs.getString("ORDINE") +" Data"+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
 				prenotazioni += "<a href=\"Controller?action=rimuovi_pre&cod="+rs.getInt("COD")+"\">cancella prenotazione</a><br><br>";
 			}else{
 				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
