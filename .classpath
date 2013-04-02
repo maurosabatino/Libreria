@@ -13,5 +13,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/Mauro/git/Libreria2/WebContent/WEB-INF/lib/derby.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauro/git/Libreria2/WebContent/WEB-INF/lib/derbyclient.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mauro/git/Libreria2/WebContent/WEB-INF/lib/derbynet.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

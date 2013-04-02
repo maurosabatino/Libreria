@@ -125,7 +125,7 @@ public class Carrello {
 			
 		return out;
 	}
-	public void rimuoviPrenotazioni(int cod){
+	public void rimuoviPrenotazioni(int cod,String username){
 		try{
 			String url = "jdbc:derby://localhost:1527/c:/Database;";
 			String user = "app";
@@ -151,7 +151,7 @@ public class Carrello {
 		while (rs.next()){
 			if((Integer.parseInt(rs.getString("EVASO")))==0){
 				prenotazioni +="<br> Ordine"+rs.getString("ORDINE") +" Data"+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
-				prenotazioni += "<a href=\"Controller?action=rimuovi_pre&cod="+rs.getInt("COD")+"\">cancella prenotazione</a><br><br>";
+				prenotazioni += "<a href=\"Controller?operazione=rimuovi_pre&cod="+rs.getInt("COD")+"\">cancella prenotazione</a><br><br>";
 			}else{
 				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
 				prenotazioni += "<br>L'ordine è stato evaso.<br><br>";

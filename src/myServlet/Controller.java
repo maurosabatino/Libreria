@@ -106,10 +106,17 @@ public class Controller extends HttpServlet {
 			forward(request,response,"/prenotazione.jsp");
 		}
 		if(operazione.equals("rimuovi_pre")){
-			Carrello carrello = (Carrello)session.getAttribute("carrello");
 			int codice = Integer.parseInt(request.getParameter("cod"));
-			carrello.rimuoviPrenotazioni(codice);
-			forward(request, response, "/Prenotazioni.jsp");
+			
+			Utente utente=(Utente)session.getAttribute("utente");
+			Carrello carrello = (Carrello)session.getAttribute("carrello");
+			if(carrello==null)
+				carrello = new Carrello();
+			String username = utente.getUser();
+			System.out.println(""+codice+","+username);
+			carrello.rimuoviPrenotazioni(codice,username);
+			session.setAttribute("carrello", carrello);
+			forward(request, response, "/prenotazione.jsp");
 		}
 				
 		/*-----------------fine operazione sul carrello-----------------------------------------------------------*/
