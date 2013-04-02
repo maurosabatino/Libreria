@@ -8,6 +8,10 @@
 </head>
 <body>
 
+
+<div class="sidebar1">
+<p><jsp:include page="login.jsp" flush="true"></jsp:include></p>
+</div>
 operazioni disponibili: 
 <a href="Controller?operazione=visualizzaLibri">visulizza libri</a>
 <a href="vetrina.jsp">compra un libro</a>

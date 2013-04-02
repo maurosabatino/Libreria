@@ -144,8 +144,10 @@ public class Controller extends HttpServlet {
 		}
 		
 		if(operazione.equals("logout")){
-			session.invalidate();
-			forward(request,response,"/index.jsp");
+			response.setHeader("Cache-Control", "no-cache, no-store");
+			response.setHeader("Pragma", "no-cache");
+			request.getSession().invalidate();
+			response.sendRedirect(request.getContextPath() + "/index.jsp");
 		}
 
 	}

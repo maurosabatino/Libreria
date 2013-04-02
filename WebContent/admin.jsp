@@ -6,13 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>amministrazione</title>
+<link rel="stylesheet" type="text/css" href="stile.css">
 </head>
 <body>
 ciao admin
-
+<div class="sidebar1">
+    <ul class="nav">
+        <li><a href="inserisciLibro.jsp">inserisci un libro</a></li>
+        <li><a href="#">Collegamento due</a></li>
+        <li><a href="#">Collegamento tre</a></li>
+        <li><a href="#">Collegamento quattro</a></li>
+    </ul>
+</div>
 <jsp:getProperty property="visualizzaamministratore" name="catalogo"/>
 
-<a href="inserisciLibro.jsp">inserisci un libro</a>
+
 
 </body>
 </html>

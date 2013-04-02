@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="model.*"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -7,8 +7,10 @@
 <title>Login page</title>
 </head>
 <body>
-<% String user = (String)session.getAttribute("username");
-   if (user==null){%>
+<% Utente utente = (Utente)session.getAttribute("utente");
+	if (utente==null){
+	
+	%>
 
 Login:
 <form action="/Libreria2/Controller" name="loginForm" method="POST">
@@ -17,9 +19,12 @@ Login:
 <input type="hidden" name="operazione" value="login">
 <p><input type="submit" name ="submit" value="OK"></p>
 </form>
-<%}else {%>
-Ciao <%=user%>
-<a href="Gestore?action=logout"><br><br>Esci</a>
+<%}else {
+	String user = utente.getUser();
+	String ruolo=utente.getRuolo();
+%>
+Ciao <%=user%> sei <%=ruolo %>
+<a href="Controller?operazione=logout"><br><br>Esci</a>
 <%} %>
 </body>
 </html>

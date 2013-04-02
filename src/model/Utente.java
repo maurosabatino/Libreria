@@ -13,9 +13,9 @@ public class Utente {
 	private String ruolo;
 	
 	public Utente(){
-		user="sconosciuto";
-		password="sconosciuto";
-		ruolo="sconosciuto";
+		user=null;
+		password=null;
+		ruolo=null;
 		
 	}
 	public String getUser(){

@@ -15,7 +15,7 @@ Libreria
 <div class="sidebar1">
 
 <p><jsp:include page="login.jsp" flush="true"></jsp:include></p>
-</div>
+</div> 
 <p><jsp:include page="visualizza.jsp" flush="true"></jsp:include></p>
 
 <p><jsp:include page="cerca.jsp" flush="true"></jsp:include></p>
