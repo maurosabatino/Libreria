@@ -107,7 +107,6 @@ public class Controller extends HttpServlet {
 		}
 		if(operazione.equals("rimuovi_pre")){
 			int codice = Integer.parseInt(request.getParameter("cod"));
-			
 			Utente utente=(Utente)session.getAttribute("utente");
 			Carrello carrello = (Carrello)session.getAttribute("carrello");
 			if(carrello==null)

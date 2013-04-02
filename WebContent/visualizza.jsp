@@ -10,6 +10,7 @@
 <title>visualizza i libri</title>
 </head>
 <body>
+<p>Catalogo dei libri</p>
 <jsp:getProperty name="op" property="visualizzalibri"/>
 </body>
 </html>

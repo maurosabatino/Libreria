@@ -51,11 +51,12 @@ public class Catalogo {
 		Statement st = conn.createStatement();
 		String out="";
 		ResultSet rs =st.executeQuery("SELECT * FROM LIBRI");
-		out+="<select name=id>";
+		out+="<table border=2> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		while(rs.next()){
-			out+="<option value="+ rs.getInt("ID")+">titolo= "+ rs.getString("TITOLO") + "autore= "+ rs.getString("AUTORE") +"prezzo=" + rs.getDouble("PREZZO") +"</option>";
+			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO") +"</td>";
+			out+="<td><a href=\"Controller?operazione=aggiungialcarrello&id="+rs.getInt("ID")+"\">aggiungi al carrello</a><br><br></td></tr>";
 		}
-		out+="</select>";
+		out+="</table>";
 		rs.close(); st.close(); conn.close();
 		return out;
 	}

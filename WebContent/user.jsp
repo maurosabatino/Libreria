@@ -15,5 +15,6 @@
 operazioni disponibili: 
 <a href="Controller?operazione=visualizzaLibri">visulizza libri</a>
 <a href="vetrina.jsp">compra un libro</a>
+<a href="prenotazione.jsp"> visualizza le tue prenotazioni</a>
 </body>
 </html>

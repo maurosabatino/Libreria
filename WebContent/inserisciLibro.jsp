@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Inserimento</title>
 </head>
 <body>
 <form action="/Libreria2/Controller" name="loginForm" method="POST">
