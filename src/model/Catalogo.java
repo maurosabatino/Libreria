@@ -119,8 +119,8 @@ public class Catalogo {
 		ResultSet rs =st.executeQuery("SELECT * FROM libri");
 		out+="<table border=2> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		while(rs.next()){
-			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO") +"</td>";
-			//out+="<td><form action=\"/Libreria2/Controller"\ name=\"loginForm"\ method=\"POST"\>";
+			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO")+"</td>" ;
+			out += "<td><a href=\"Controller?operazione=rimuovi_libro&id="+rs.getInt("ID")+"\">cancella libro</a><br><br></td></tr>";
 		}
 		out+="</table";
 		rs.close(); st.close(); conn.close();	
@@ -162,7 +162,7 @@ public class Catalogo {
 		while (rs.next()){
 			if((Integer.parseInt(rs.getString("EVASO")))==0){
 				prenotazioni +="<br> Ordine"+rs.getString("ORDINE") +" Data"+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
-				prenotazioni += "<a href=\"Controller?action=evadi_pre&cod="+rs.getInt("COD")+"\">evadi prenotazione</a><br><br>";
+				prenotazioni += "<a href=\"Controller?=evadi_pre&cod="+rs.getInt("COD")+"\">evadi prenotazione</a><br><br>";
 			}else{
 				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
 				prenotazioni += "<br>L'ordine è stato evaso.<br><br>";
