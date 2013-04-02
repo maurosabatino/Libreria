@@ -89,16 +89,7 @@ public class Catalogo {
 		    return catalogo;
 	}
 	
-	public void inserisciLibro(String titolo,String autore,Double prezzo) throws SQLException{
-		String url = "jdbc:derby://localhost:1527/c:/Database;";
-		String user = "app";
-		String pwd = "app";
-		Connection conn = DriverManager.getConnection(url,user,pwd);
-		Statement st = conn.createStatement();
-		st.executeUpdate("INSERT INTO LIBRI (TITOLO, AUTORE, PREZZO) VALUES ('"+titolo+"', '"+autore+"', "+prezzo+")");
-		st.close(); conn.close();
-	}
-	
+
 	
 	public String getVisualizzasearch(){
 		String out="\n lista dei libri cercati:";
@@ -116,6 +107,74 @@ public class Catalogo {
 		return out;
 	}
 	
+	/*-----------------------operazioni di amministrazione---------------------------------------*/
+	
+	public String getVisualizzaamministratore() throws SQLException{
+		String url = "jdbc:derby://localhost:1527/c:/Database;";
+		String user = "app";
+		String pwd = "app";
+		Connection conn = DriverManager.getConnection(url,user,pwd);
+		Statement st = conn.createStatement();
+		String out="";
+		ResultSet rs =st.executeQuery("SELECT * FROM libri");
+		out+="<table border=2> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		while(rs.next()){
+			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO") +"</td>";
+			//out+="<td><form action=\"/Libreria2/Controller"\ name=\"loginForm"\ method=\"POST"\>";
+		}
+		out+="</table";
+		rs.close(); st.close(); conn.close();	
+		return out;
+	}
+	
+	
+	
+	public void inserisciLibro(String titolo,String autore,Double prezzo) throws SQLException{
+		String url = "jdbc:derby://localhost:1527/c:/Database;";
+		String user = "app";
+		String pwd = "app";
+		Connection conn = DriverManager.getConnection(url,user,pwd);
+		Statement st = conn.createStatement();
+		st.executeUpdate("INSERT INTO LIBRI (TITOLO, AUTORE, PREZZO) VALUES ('"+titolo+"', '"+autore+"', "+prezzo+")");
+		st.close(); conn.close();
+	}
+	
+	public void rimuoviLibro(int id) throws SQLException{
+		String url = "jdbc:derby://localhost:1527/c:/Database;";
+		String user = "app";
+		String pwd = "app";
+		Connection conn = DriverManager.getConnection(url,user,pwd);
+		Statement st = conn.createStatement();
+		st.executeUpdate("DELETE FROM LIBRI WHERE ID="+id);
+		st.close(); conn.close();
+	}
+	
+	public String getVisualizzaprenotazioni() throws SQLException{
+		String url = "jdbc:derby://localhost:1527/c:/Database;";
+		String user = "app";
+		String pwd = "app";
+		Connection conn = DriverManager.getConnection(url, user, pwd);
+		Statement st = conn.createStatement();
+		ResultSet rs;
+		String prenotazioni = "";
+		rs = st.executeQuery("SELECT * FROM PRENOTAZIONI");
+		    
+		while (rs.next()){
+			if((Integer.parseInt(rs.getString("EVASO")))==0){
+				prenotazioni +="<br> Ordine"+rs.getString("ORDINE") +" Data"+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
+				prenotazioni += "<a href=\"Controller?action=evadi_pre&cod="+rs.getInt("COD")+"\">evadi prenotazione</a><br><br>";
+			}else{
+				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
+				prenotazioni += "<br>L'ordine è stato evaso.<br><br>";
+			}
+		} 
+			
+		st.close();
+		conn.close();
+		return prenotazioni;
+	}
+	
+	/*-----------------------fine operazioni di amministrazione----------------------------------------*/
 	
 	
 }

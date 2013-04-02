@@ -106,8 +106,8 @@ public class Controller extends HttpServlet {
 			forward(request,response,"/prenotazione.jsp");
 		}
 		if(operazione.equals("rimuovi_pre")){
-			int codice = Integer.parseInt(request.getParameter("cod"));
 			Carrello carrello = (Carrello)session.getAttribute("carrello");
+			int codice = Integer.parseInt(request.getParameter("cod"));
 			carrello.rimuoviPrenotazioni(codice);
 			forward(request, response, "/Prenotazioni.jsp");
 		}
@@ -126,6 +126,12 @@ public class Controller extends HttpServlet {
 			request.setAttribute("catalogo", catalogo);
 			forward(request,response,"/visualizza.jsp");
 		}
+		if(operazione.equals("rimuovi_libro")){
+			Catalogo catalogo = new Catalogo();
+			int id = Integer.parseInt(request.getParameter("id"));
+			catalogo.rimuoviLibro(id);
+			forward(request,response,"/admin.jsp");
+		}
 		
 		/*-----------------fine operazioni di amministratore------------------------------------------------------*/
 		if(operazione.equals("search")){
@@ -139,7 +145,7 @@ public class Controller extends HttpServlet {
 		
 		if(operazione.equals("logout")){
 			session.invalidate();
-			
+			forward(request,response,"/index.jsp");
 		}
 
 	}

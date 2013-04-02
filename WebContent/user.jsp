@@ -7,7 +7,7 @@
 <title>utente</title>
 </head>
 <body>
-sono utente
+
 operazioni disponibili: 
 <a href="Controller?operazione=visualizzaLibri">visulizza libri</a>
 <a href="vetrina.jsp">compra un libro</a>

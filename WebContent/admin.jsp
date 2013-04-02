@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
+ <jsp:useBean id="catalogo" scope="request" class="model.Catalogo"/>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -8,6 +9,10 @@
 </head>
 <body>
 ciao admin
+
+<jsp:getProperty property="visualizzaamministratore" name="catalogo"/>
+
 <a href="inserisciLibro.jsp">inserisci un libro</a>
+
 </body>
 </html>
