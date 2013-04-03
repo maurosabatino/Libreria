@@ -182,7 +182,7 @@ public class Catalogo {
 		while (rs.next()){
 			if((Integer.parseInt(rs.getString("EVASO")))==0){
 				prenotazioni +="<br> Ordine"+rs.getString("ORDINE") +" Data"+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
-				prenotazioni += "<a href=\"Controller?=evadi_pre&cod="+rs.getInt("COD")+"\">evadi prenotazione</a><br><br>";
+				prenotazioni += "<a href=\"Controller?operazione=evadi_pre&cod="+rs.getInt("COD")+"\">evadi prenotazione</a><br><br>";
 			}else{
 				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
 				prenotazioni += "<br>L'ordine è stato evaso.<br><br>";
@@ -192,6 +192,15 @@ public class Catalogo {
 		st.close();
 		conn.close();
 		return prenotazioni;
+	}
+	public void evadiOrdine(int codice) throws SQLException{
+		String url = "jdbc:derby://localhost:1527/c:/Database;";
+		String user = "app";
+		String pwd = "app";
+		Connection conn = DriverManager.getConnection(url,user,pwd);
+		Statement st = conn.createStatement();
+		st.executeUpdate("UPDATE PRENOTAZIONI SET EVASO = 1 WHERE COD="+codice);
+		st.close(); conn.close();
 	}
 	
 	/*-----------------------fine operazioni di amministrazione----------------------------------------*/

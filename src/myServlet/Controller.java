@@ -156,6 +156,12 @@ public class Controller extends HttpServlet {
 			catalogo.modificaLibro(id, titolo, autore, prezzo);
 			forward(request,response,"/admin.jsp");
 		}
+		if(operazione.equals("evadi_pre")){
+			Catalogo catalogo = new Catalogo();
+			int codice = Integer.parseInt(request.getParameter("cod"));
+			catalogo.evadiOrdine(codice);
+			forward(request,response,"/admin.jsp");
+		}
 		
 		/*-----------------fine operazioni di amministratore------------------------------------------------------*/
 		if(operazione.equals("search")){
