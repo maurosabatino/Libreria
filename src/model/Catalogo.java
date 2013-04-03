@@ -180,10 +180,15 @@ public class Catalogo {
 		rs = st.executeQuery("SELECT * FROM PRENOTAZIONI");
 		    
 		while (rs.next()){
-			if((Integer.parseInt(rs.getString("EVASO")))==0){
+			if((Integer.parseInt(rs.getString("EVASO")))==0 && (Integer.parseInt(rs.getString("RICEVUTO"))==0)){
 				prenotazioni +="<br> Ordine"+rs.getString("ORDINE") +" Data"+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
 				prenotazioni += "<a href=\"Controller?operazione=evadi_pre&cod="+rs.getInt("COD")+"\">evadi prenotazione</a><br><br>";
-			}else{
+			}else if((Integer.parseInt(rs.getString("EVASO")))==1 && (Integer.parseInt(rs.getString("RICEVUTO"))==1)){
+				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
+				prenotazioni += "<br>L'ordine è stato evaso ed è anche stato ricevuto.<br><br>";
+				prenotazioni += "<a href=\"Controller?operazione=rimuovi_pre_admin&cod="+rs.getInt("COD")+"\">cancella prenotazione</a><br><br>";
+			}
+			else{
 				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
 				prenotazioni += "<br>L'ordine è stato evaso.<br><br>";
 			}
@@ -192,6 +197,18 @@ public class Catalogo {
 		st.close();
 		conn.close();
 		return prenotazioni;
+	}
+	public void rimuoviPrenotazioni(int cod) throws SQLException{
+		
+			String url = "jdbc:derby://localhost:1527/c:/Database;";
+			String user = "app";
+			String pwd = "app";
+		    Connection conn = DriverManager.getConnection(url, user, pwd);
+		    Statement st = conn.createStatement();
+		    st.executeUpdate("DELETE FROM PRENOTAZIONI WHERE COD="+cod+"");
+		    st.close();
+		    conn.close();
+		
 	}
 	public void evadiOrdine(int codice) throws SQLException{
 		String url = "jdbc:derby://localhost:1527/c:/Database;";

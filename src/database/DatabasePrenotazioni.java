@@ -22,7 +22,7 @@ public class DatabasePrenotazioni {
 		
 			Statement st = conn.createStatement();
 			try{st.execute("DROP TABLE "+name);}catch(SQLException e){}
-			st.executeUpdate("CREATE TABLE "+name+" (COD INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) PRIMARY KEY, USERNAME VARCHAR(20) NOT NULL, ORDINE VARCHAR(500) NOT NULL, DATA VARCHAR(20), TOTALE FLOAT, EVASO INT)");
+			st.executeUpdate("CREATE TABLE "+name+" (COD INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) PRIMARY KEY, USERNAME VARCHAR(20) NOT NULL, ORDINE VARCHAR(500) NOT NULL, DATA VARCHAR(20), TOTALE FLOAT, EVASO INT,RICEVUTO INT)");
 			st.close();
 			System.out.println("Restarted\n");
 			conn.close();

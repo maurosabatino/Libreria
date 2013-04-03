@@ -126,22 +126,6 @@ public class Carrello {
 		return out;
 	}
 
-	public String Visualizzacarrello(){
-		String out="\n lista dei libri nel carrello:";
-		out+="";
-		
-		for(int i = 0;i<carrello.size();i++){
-			if(carrello.get(i)!=null){
-				String titolo=carrello.get(i).getTitolo();
-				String autore=carrello.get(i).getAutore();
-				double prezzo=carrello.get(i).getPrezzo();
-				int quantità=carrello.get(i).getQuantità();
-				out+=""+ titolo + ","+ autore +"," + prezzo +","+quantità+"\n";
-			}
-		}
-		out+="";
-		return out;
-	}
 	
 	
 	/*operazioni di compra*/
@@ -152,7 +136,7 @@ public class Carrello {
 		Connection conn = DriverManager.getConnection(url,user,pwd);
 		Statement st = conn.createStatement();
 		if(carrello!=null){
-			st.executeUpdate("INSERT INTO PRENOTAZIONI (USERNAME, ORDINE, DATA, TOTALE, EVASO) VALUES ('"+username+"', '"+toString()+"', '2001/01/01', "+totale+", 0)"); 
+			st.executeUpdate("INSERT INTO PRENOTAZIONI (USERNAME, ORDINE, DATA, TOTALE, EVASO,RICEVUTO) VALUES ('"+username+"', '"+toString()+"', '2001/01/01', "+totale+", 0,0)"); 
 			svuota();
 			setTotale(-(getTotale()));
 		}
@@ -168,8 +152,10 @@ public class Carrello {
 			
 		return out;
 	}
-	public void rimuoviPrenotazioni(int cod,String username){
-		try{
+	
+	/*operazioni sulle prenotazioni*/
+	public void rimuoviPrenotazioni(int cod,String username) throws SQLException{
+		
 			String url = "jdbc:derby://localhost:1527/c:/Database;";
 			String user = "app";
 			String pwd = "app";
@@ -178,8 +164,9 @@ public class Carrello {
 		    st.executeUpdate("DELETE FROM PRENOTAZIONI WHERE USERNAME='"+username+"' AND COD="+cod+"");
 		    st.close();
 		    conn.close();
-		}catch(SQLException e){ System.out.println(e.getMessage());}
+		
 	}
+	
 	public String getVisualizzaprenotazioni() throws SQLException{
 		String url = "jdbc:derby://localhost:1527/c:/Database;";
 		String user = "app";
@@ -192,18 +179,30 @@ public class Carrello {
 		prenotazioni="Le tue prenotazioni, "+username+"<br><br>";
 		    
 		while (rs.next()){
-			if((Integer.parseInt(rs.getString("EVASO")))==0){
+			if((Integer.parseInt(rs.getString("EVASO")))==0 && (Integer.parseInt(rs.getString("RICEVUTO"))==0)){
 				prenotazioni +="<br> Ordine"+rs.getString("ORDINE") +" Data"+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
 				prenotazioni += "<a href=\"Controller?operazione=rimuovi_pre&cod="+rs.getInt("COD")+"\">cancella prenotazione</a><br><br>";
+			}else if((Integer.parseInt(rs.getString("EVASO")))==1 && (Integer.parseInt(rs.getString("RICEVUTO"))==0)){
+				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
+				prenotazioni += "<a href=\"Controller?operazione=conferma_condegna&cod="+rs.getInt("COD")+"\">conferma consegna</a><br><br>";
 			}else{
 				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
-				prenotazioni += "<br>L'ordine è stato evaso.<br><br>";
+				prenotazioni += "<br>L'ordine è stato evaso e anche ricevuto.<br><br>";
 			}
 		} 
 			
 		st.close();
 		conn.close();
 		return prenotazioni;
+	}
+	public void confermaConsegna(int cod) throws SQLException{
+		String url = "jdbc:derby://localhost:1527/c:/Database;";
+		String user = "app";
+		String pwd = "app";
+		Connection conn = DriverManager.getConnection(url,user,pwd);
+		Statement st = conn.createStatement();
+		st.executeUpdate("UPDATE PRENOTAZIONI SET RICEVUTO = 1 WHERE COD="+cod);
+		st.close(); conn.close();
 	}
 	
 }

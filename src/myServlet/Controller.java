@@ -69,6 +69,11 @@ public class Controller extends HttpServlet {
 			session.setAttribute("utente", utente);
 			if(utente.Autenticazione()){
 				if(utente.getRuolo().equals("user")){
+					Carrello carrello = (Carrello)session.getAttribute("carrello");
+					if(carrello==null) carrello = new Carrello();
+					String username = utente.getUser();
+					carrello.setUsername(username);
+					session.setAttribute("carrello", carrello);
 					forward(request, response,"/user.jsp");
 				}else{
 					forward(request, response,"/admin.jsp");
@@ -92,7 +97,6 @@ public class Controller extends HttpServlet {
 			if(carrello==null) carrello = new Carrello(); 
 			int id = Integer.parseInt(request.getParameter("id"));
 			carrello.aggiungiLibro(id);
-			System.out.println(carrello.Visualizzacarrello());
 			session.setAttribute("carrello", carrello);
 			forward(request,response,"/user.jsp");
 		}//fine operazione aggiungi al carrello
@@ -108,10 +112,9 @@ public class Controller extends HttpServlet {
 		}//fine operazione rimuovi dal carrello
 		if(operazione.equals("compra")){
 			Carrello carrello = (Carrello)session.getAttribute("carrello");
-			Utente utente =(Utente)session.getAttribute("utente");
-			String username = utente.getUser();
-			carrello.setUsername(username);
+			if(carrello==null) carrello = new Carrello(); 
 			carrello.compra();
+			session.setAttribute("carrello", carrello);
 			forward(request,response,"/prenotazione.jsp");
 		}
 		if(operazione.equals("rimuovi_pre")){
@@ -121,8 +124,17 @@ public class Controller extends HttpServlet {
 			if(carrello==null)
 				carrello = new Carrello();
 			String username = utente.getUser();
-			System.out.println(""+codice+","+username);
 			carrello.rimuoviPrenotazioni(codice,username);
+			session.setAttribute("carrello", carrello);
+			forward(request, response, "/prenotazione.jsp");
+		}
+		
+		if(operazione.equals("conferma_condegna")){
+			int cod = Integer.parseInt(request.getParameter("cod"));
+			Carrello carrello = (Carrello)session.getAttribute("carrello");
+			if(carrello==null)
+				carrello = new Carrello();
+			carrello.confermaConsegna(cod);
 			session.setAttribute("carrello", carrello);
 			forward(request, response, "/prenotazione.jsp");
 		}
@@ -160,7 +172,13 @@ public class Controller extends HttpServlet {
 			Catalogo catalogo = new Catalogo();
 			int codice = Integer.parseInt(request.getParameter("cod"));
 			catalogo.evadiOrdine(codice);
-			forward(request,response,"/admin.jsp");
+			forward(request,response,"/prenotazioni.jsp");
+		}
+		if(operazione.equals("rimuovi_pre_admin")){
+			Catalogo catalogo = new Catalogo();
+			int cod = Integer.parseInt(request.getParameter("cod"));
+			catalogo.rimuoviPrenotazioni(cod);
+			forward(request, response, "/prenotazioni.jsp");
 		}
 		
 		/*-----------------fine operazioni di amministratore------------------------------------------------------*/
