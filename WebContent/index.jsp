@@ -9,20 +9,24 @@
 </head>
 <body>
 
-<header>
+<div id="header">
+<h2>
 Libreria
-</header>
-<div class="sidebar1">
+</h2>
+</div>
 
+<div id="aside">
 <p><jsp:include page="login.jsp" flush="true"></jsp:include></p>
-</div> 
-<p><jsp:include page="visualizza.jsp" flush="true"></jsp:include></p>
-
 <p><jsp:include page="cerca.jsp" flush="true"></jsp:include></p>
+</div>
+<div id="article">
+<p><jsp:include page="visualizza.jsp" flush="true"></jsp:include></p>
+</div>
 
-<footer>
+
+<div id="footer">
 Progetto di tecnologie web Dario Leo Mauro sabatino
-</footer>
+</div>
 
 </body>
 </html>

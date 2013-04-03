@@ -48,6 +48,12 @@ public class Carrello {
 	public boolean aggiungiLibro(int id) throws SQLException{
 		Libro libro = cercaLibro(id);	
 		if(libro!=null){
+			for(int i=0;i<carrello.size();i++){
+				if(carrello.get(i).getId()==id){
+					int quantità=carrello.get(i).getQuantità();
+					carrello.get(i).setQuantità(quantità++);
+				}
+			}
 			this.carrello.add(libro);
 			setTotale(libro.getPrezzo());
 			return true;
@@ -56,8 +62,16 @@ public class Carrello {
 	public boolean rimuoviLibro(int id) throws SQLException{
 		Libro libro = cercaLibro(id);
 		if(libro!=null){
-			setTotale(-libro.getPrezzo());
-			carrello.remove(libro);
+			for(int i=0;i<carrello.size();i++){
+				if(carrello.get(i).getId()==id){
+					setTotale(-libro.getPrezzo());
+					carrello.remove(i);
+					
+				}
+				
+			}
+			
+			
 			
 			return true;
 		}
@@ -84,27 +98,41 @@ public class Carrello {
 	
 	public String getVisualizzacarrello(){
 		String out="\n lista dei libri nel carrello:";
-		out+="<table border=2> <tr><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table border=2> <tr><th>Id</th><th>Titolo</th><th>Autore</th><th>Prezzo</th><th>Quantità</th></tr>";
+		
+		for(int i = 0;i<carrello.size();i++){
+			if(carrello.get(i)!=null){
+				int id= carrello.get(i).getId();
+				String titolo=carrello.get(i).getTitolo();
+				String autore=carrello.get(i).getAutore();
+				double prezzo=carrello.get(i).getPrezzo();
+				int quantità=carrello.get(i).getQuantità();
+				out+="<tr><td>"+id+"</td><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td><td>"+quantità+"</td>";
+				out+="<td><a href=\"Controller?operazione=rimuovi_carrello&id="+id+"\">cancella dal carrello</a></td></td>";
+			}
+		}
+		out+="</table>";
+		return out;
+	}
+
+	public String Visualizzacarrello(){
+		String out="\n lista dei libri nel carrello:";
+		out+="";
 		
 		for(int i = 0;i<carrello.size();i++){
 			if(carrello.get(i)!=null){
 				String titolo=carrello.get(i).getTitolo();
 				String autore=carrello.get(i).getAutore();
 				double prezzo=carrello.get(i).getPrezzo();
-				out+="<tr><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td></tr>";
+				int quantità=carrello.get(i).getQuantità();
+				out+=""+ titolo + ","+ autore +"," + prezzo +","+quantità+"\n";
 			}
 		}
-		out+="</table>";
+		out+="";
 		return out;
 	}
 	
-	public String Visualizzacarrello(){
-		String out="";
-		for(int i=0;i<carrello.size();i++){
-			out+="titolo: "+ carrello.get(i).getTitolo() + "autore: "+ carrello.get(i).getAutore() +"prezzo: " + carrello.get(i).getPrezzo() +"\n";
-		}
-		return out;
-	}
+	
 	/*operazioni di compra*/
 	public void compra() throws SQLException{
 		String url = "jdbc:derby://localhost:1527/c:/Database;";

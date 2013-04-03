@@ -10,17 +10,14 @@
 <title>Vetrina</title>
 </head>
 <body>
-<form action="/Libreria2/Controller" name="compra" method="post">
+
 
 <jsp:getProperty property="selezionalibro" name="operazioni"/>
 
-<input type="hidden" name="operazione" value="aggiungialcarrello">
 
-<input type="submit" name="submit" value="aggiungi al carrello">
-</form>
-<div class="sidebar1">
+<center>
 <p><jsp:include page="carrello.jsp" flush="true"></jsp:include></p>
-</div>
+</center>
 <a href="Controller?operazione=logout">logout</a>
 </body>
 </html>

@@ -17,14 +17,14 @@ Login:
 <p>nome utente:<input type="text" name="user"></p>
 <p>password:<input type="password" name="password"></p>
 <input type="hidden" name="operazione" value="login">
-<p><input type="submit" name ="submit" value="OK"></p>
+<p><input type="submit" name ="submit" value="Login"></p>
 </form>
 <%}else {
 	String user = utente.getUser();
 	String ruolo=utente.getRuolo();
 %>
 Ciao <%=user%> sei <%=ruolo %>
-<a href="Controller?operazione=logout"><br><br>Esci</a>
-<%} %>
+<a href="Controller?operazione=logout">Esci</a>
+<% } %>
 </body>
 </html>
