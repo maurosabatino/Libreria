@@ -13,7 +13,7 @@ ciao admin
 <div class="sidebar1">
     <ul class="nav">
         <li><a href="inserisciLibro.jsp">inserisci un libro</a></li>
-        <li><a href="#">Collegamento due</a></li>
+        <li><a href="modifica.jsp">modifca un libro</a></li>
         <li><a href="#">Collegamento tre</a></li>
         <li><a href="#">Collegamento quattro</a></li>
     </ul>

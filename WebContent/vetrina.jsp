@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="stile.css">
 <title>Vetrina</title>
 </head>
 <body>
@@ -17,11 +18,9 @@
 
 <input type="submit" name="submit" value="aggiungi al carrello">
 </form>
-
-<center>
+<div class="sidebar1">
 <p><jsp:include page="carrello.jsp" flush="true"></jsp:include></p>
-</center>
-
+</div>
 <a href="Controller?operazione=logout">logout</a>
 </body>
 </html>

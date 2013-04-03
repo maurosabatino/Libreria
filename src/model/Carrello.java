@@ -26,7 +26,8 @@ public class Carrello {
 		this.carrello=carrello;
 	}
 	public void setTotale(double totale){
-		this.totale=totale;
+		this.totale+=totale;
+		totale = Math.rint(totale*100)/100;
 	}
 	public void setUsername(String username){
 		this.username=username;
@@ -48,14 +49,16 @@ public class Carrello {
 		Libro libro = cercaLibro(id);	
 		if(libro!=null){
 			this.carrello.add(libro);
-			totale+=libro.getPrezzo();
+			setTotale(libro.getPrezzo());
 			return true;
 		}else return false;
 	}
 	public boolean rimuoviLibro(int id) throws SQLException{
 		Libro libro = cercaLibro(id);
 		if(libro!=null){
+			setTotale(-libro.getPrezzo());
 			carrello.remove(libro);
+			
 			return true;
 		}
 		return false;

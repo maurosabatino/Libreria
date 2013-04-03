@@ -75,7 +75,7 @@ public class Catalogo {
 		    else if((titolo==null || titolo.equals("")) && (autore==null || autore.equals("")))
 		    	rs = st.executeQuery("SELECT * FROM LIBRI");
 		    else
-		    	rs = st.executeQuery("SELECT * FROM LIBRI WHERE TITOLO='"+titolo+"' AND AUTORE='"+autore+"'");
+		    	rs = st.executeQuery("c AND AUTORE='"+autore+"'");
 		    
 		    while(rs.next()) {
 		    	Libro libro = new Libro();
@@ -149,6 +149,25 @@ public class Catalogo {
 		st.executeUpdate("DELETE FROM LIBRI WHERE ID="+id);
 		st.close(); conn.close();
 	}
+	
+	public void modificaLibro(int id,String titolo,String autore, Double prezzo) throws SQLException{
+		String url = "jdbc:derby://localhost:1527/c:/Database;";
+		String user = "app";
+		String pwd = "app";
+		Connection conn = DriverManager.getConnection(url,user,pwd);
+		Statement st = conn.createStatement();
+			
+		 if(!(titolo.equals("")||titolo==null)){
+			 st.executeUpdate(" UPDATE LIBRI SET TITOLO='"+titolo+"' WHERE ID="+id); 
+		 }
+		 if(!(autore.equals("")||autore==null)){
+			 st.executeUpdate(" UPDATE LIBRI SET AUTORE='"+autore+"' WHERE ID="+id);  
+		 }
+		 if(!((prezzo==0)||prezzo==null)){
+			 st.executeUpdate(" UPDATE LIBRI SET PREZZO="+prezzo+"WHERE ID="+id); 
+		 }
+		}
+	
 	
 	public String getVisualizzaprenotazioni() throws SQLException{
 		String url = "jdbc:derby://localhost:1527/c:/Database;";
