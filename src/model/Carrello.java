@@ -27,7 +27,7 @@ public class Carrello {
 	}
 	public void setTotale(double totale){
 		this.totale+=totale;
-		totale = Math.rint(totale*100)/100;
+		totale = (Math.rint(totale*120))/100;
 	}
 	public void setUsername(String username){
 		this.username=username;
@@ -45,26 +45,37 @@ public class Carrello {
 	}
 	
 	
-	public boolean aggiungiLibro(int id) throws SQLException{
+	public void aggiungiLibro(int id) throws SQLException{
 		Libro libro = cercaLibro(id);	
 		if(libro!=null){
-			for(int i=0;i<carrello.size();i++){
-				if(carrello.get(i).getId()==id){
-					int quantità=carrello.get(i).getQuantità();
-					carrello.get(i).setQuantità(quantità++);
-				}
+			if(cercaPosizione(id)!=-1){
+				int i=cercaPosizione(id);
+				int quantità=carrello.get(i).getQuantità();
+				quantità++;
+				carrello.get(i).setQuantità(quantità);
+				setTotale(libro.getPrezzo());
+			}else{
+				carrello.add(libro);
+				setTotale(libro.getPrezzo());
 			}
-			this.carrello.add(libro);
-			setTotale(libro.getPrezzo());
-			return true;
-		}else return false;
+			
+		}
+	}
+		
+	public int cercaPosizione(int id){
+		for(int i = 0;i<carrello.size();i++){
+			if(carrello.get(i).getId()==id)
+				return i;
+		}
+		return -1;
 	}
 	public boolean rimuoviLibro(int id) throws SQLException{
 		Libro libro = cercaLibro(id);
 		if(libro!=null){
 			for(int i=0;i<carrello.size();i++){
 				if(carrello.get(i).getId()==id){
-					setTotale(-libro.getPrezzo());
+					int quantità=carrello.get(i).getQuantità();
+					setTotale(-(libro.getPrezzo()* quantità));
 					carrello.remove(i);
 					
 				}
