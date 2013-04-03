@@ -1,14 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 
  <jsp:useBean id="carrello" scope="session" class="model.Carrello"/>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>prenotazione</title>
+<link rel="stylesheet" type="text/css" href="stile.css">
 </head>
 <body>
+<div id="article">
 <jsp:getProperty property="visualizzaprenotazioni" name="carrello"/>
+</div>
+<div id="aside">
+<jsp:include page="barraLaterale.jsp" flush="true"></jsp:include>
+</div>
 </body>
 </html>

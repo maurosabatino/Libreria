@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +16,7 @@ Libreria
 </div>
 
 <div id="aside">
-<p><jsp:include page="login.jsp" flush="true"></jsp:include></p>
-<p><jsp:include page="cerca.jsp" flush="true"></jsp:include></p>
+<jsp:include page="barraLaterale.jsp" flush="true"></jsp:include>
 </div>
 <div id="article">
 <p><jsp:include page="visualizza.jsp" flush="true"></jsp:include></p>

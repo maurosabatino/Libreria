@@ -94,7 +94,7 @@ public class Controller extends HttpServlet {
 			carrello.aggiungiLibro(id);
 			System.out.println(carrello.Visualizzacarrello());
 			session.setAttribute("carrello", carrello);
-			forward(request,response,"/vetrina.jsp");
+			forward(request,response,"/user.jsp");
 		}//fine operazione aggiungi al carrello
 		
 		//operazione rimuovi dal carrello
@@ -104,7 +104,7 @@ public class Controller extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("id"));
 			carrello.rimuoviLibro(id);
 			session.setAttribute("carrello", carrello);
-			forward(request,response,"/vetrina.jsp");
+			forward(request,response,"/user.jsp");
 		}//fine operazione rimuovi dal carrello
 		if(operazione.equals("compra")){
 			Carrello carrello = (Carrello)session.getAttribute("carrello");

@@ -154,6 +154,7 @@ public class Carrello {
 		if(carrello!=null){
 			st.executeUpdate("INSERT INTO PRENOTAZIONI (USERNAME, ORDINE, DATA, TOTALE, EVASO) VALUES ('"+username+"', '"+toString()+"', '2001/01/01', "+totale+", 0)"); 
 			svuota();
+			setTotale(-(getTotale()));
 		}
 		st.close(); conn.close();
 	}
