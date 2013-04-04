@@ -69,9 +69,9 @@ public class Catalogo {
 		    Statement st = conn.createStatement();
 		    ResultSet rs;
 		    if((titolo==null || titolo.equals("")) && !(autore==null || autore.equals(""))) 
-		    	rs = st.executeQuery("SELECT * FROM LIBRI WHERE AUTORE='"+autore+"'");
+		    	rs = st.executeQuery("SELECT * FROM LIBRI WHERE LOWER(AUTORE) LIKE LOWER('%"+autore+"%')");
 		    else if(!(titolo==null || titolo.equals("")) && (autore==null || autore.equals("")))
-		    	rs = st.executeQuery("SELECT * FROM LIBRI WHERE TITOLO='"+titolo+"'");
+		    	rs = st.executeQuery("SELECT * FROM LIBRI WHERE LOWER(TITOLO) LIKE LOWER('%"+titolo+"%')");
 		    else if((titolo==null || titolo.equals("")) && (autore==null || autore.equals("")))
 		    	rs = st.executeQuery("SELECT * FROM LIBRI");
 		    else
