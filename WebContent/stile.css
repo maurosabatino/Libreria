@@ -29,10 +29,10 @@
 	border:2px solid blue;
 	background:url(../img/logo.png);
 	webkit-border-radius: 10px;
-moz-border-radius: 10px;
-border-radius: 10px;
+	moz-border-radius: 10px;
+	border-radius: 10px;
 	float:right;
-	width:30%;
+	width:15%;
 }
 
 #aside p{

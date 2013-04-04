@@ -30,6 +30,7 @@ if(utente!=null){
 <p><a href="Controller?operazione=logout">Logout</a></p>
 <%}
 }else{%>
+<p><a href="index.jsp">Index</a></p>
 <p><jsp:include page="login.jsp" flush="true"></jsp:include></p>
 <p><jsp:include page="cerca.jsp" flush="true"></jsp:include></p>
 

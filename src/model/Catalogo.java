@@ -91,17 +91,52 @@ public class Catalogo {
 	}
 	
 
-	
-	public String getVisualizzasearch(){
+	public String getVisualizzasearchadmin(){
 		String out="\n lista dei libri cercati:";
-		out+="<table border=2> <tr><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table border=2> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		
 		for(int i = 0;i<catalogo.size();i++){
 			if(catalogo.get(i)!=null){
+				int id =catalogo.get(i).getId();
 				String titolo=catalogo.get(i).getTitolo();
 				String autore=catalogo.get(i).getAutore();
 				double prezzo=catalogo.get(i).getPrezzo();
-				out+="<tr><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td></tr>";
+				out+="<tr><td>"+id+"</td><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td>";
+				out+="<td><a href=\"Controller?operazione=rimuovi_libro&id="+id+"\">rimuovi dal cataalogo</a><br><br></td></tr>";
+			}
+		}
+		out+="</table>";
+		return out;
+	}
+	public String getVisualizzasearchuser(){
+		String out="\n lista dei libri cercati:";
+		out+="<table border=2> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		
+		for(int i = 0;i<catalogo.size();i++){
+			if(catalogo.get(i)!=null){
+				int id =catalogo.get(i).getId();
+				String titolo=catalogo.get(i).getTitolo();
+				String autore=catalogo.get(i).getAutore();
+				double prezzo=catalogo.get(i).getPrezzo();
+				out+="<tr><td>"+id+"</td><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td>";
+				out+="<td><a href=\"Controller?operazione=aggiungialcarrello&id="+id+"\">aggiungi al carrello</a><br><br></td></tr>";
+			}
+		}
+		out+="</table>";
+		return out;
+	}
+	public String getVisualizzasearch(){
+		String out="\n lista dei libri cercati:";
+		out+="<table border=2> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		
+		for(int i = 0;i<catalogo.size();i++){
+			if(catalogo.get(i)!=null){
+				int id =catalogo.get(i).getId();
+				String titolo=catalogo.get(i).getTitolo();
+				String autore=catalogo.get(i).getAutore();
+				double prezzo=catalogo.get(i).getPrezzo();
+				out+="<tr><td>"+id+"</td><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td></tr>";
+				
 			}
 		}
 		out+="</table>";
