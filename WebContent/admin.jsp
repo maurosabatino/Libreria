@@ -9,14 +9,15 @@
 <link rel="stylesheet" type="text/css" href="stile.css">
 </head>
 <body>
-ciao admin
+
 
 <div id="aside">
 <p><jsp:include page="barraLaterale.jsp" flush="true"></jsp:include></p>
 </div>
-    
+ <div id="header"> 
+ <h2>Catalogo dei libri</h2> 
 <jsp:getProperty property="visualizzaamministratore" name="catalogo"/>
-
+</div> 
 
 
 </body>

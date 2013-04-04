@@ -25,7 +25,7 @@ Login:
 	String ruolo=utente.getRuolo();
 %>
 Ciao <%=user%> sei <%=ruolo %>
-<a href="Controller?operazione=logout">Esci</a>
+
 <% } %>
 </body>
 </html>

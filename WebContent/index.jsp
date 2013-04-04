@@ -10,8 +10,9 @@
 <body>
 
 <div id="header">
-<h2>
 Libreria
+<h2>
+Progetto di tecnologie web
 </h2>
 </div>
 

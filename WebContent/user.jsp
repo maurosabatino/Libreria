@@ -9,6 +9,15 @@
 <link rel="stylesheet" type="text/css" href="stile.css">
 </head>
 <body>
+
+<div id="header">
+<h1>
+Libreria
+</h1>
+<h2>
+Catalogo dei libri
+</h2>
+</div>
 <div id="article">
 <jsp:getProperty property="selezionalibro" name="op"/>
 </div>
