@@ -5,28 +5,55 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Index</title>
-<link rel="stylesheet" type="text/css" href="stile.css">
+<link rel="stylesheet" type="text/css" href="default.css" media="screen"/>
+
 </head>
 <body>
+<div class="container">
 
-<div id="header">
-Libreria
-<h2>
-Progetto di tecnologie web
-</h2>
+	<div class="header">
+		<div class="title">
+			<h1>Libreria</h1>
+			Progetto di tecnologie web
+		</div>
+		<div class="clearer">
+			<span></span>
+		</div>
+	</div>
+	<div class="navigation">
+		<jsp:include page="cerca.jsp" flush="true"></jsp:include>
+		<div class="clearer">
+			<span></span>
+		</div>
+
+	</div>
+	<div class="main"> <!-- inizio main  -->
+		<div class="content"> <!-- inizio content -->
+			<h1>Catalogo dei libri</h1>
+			<p><jsp:include page="visualizza.jsp" flush="true"></jsp:include></p>
+			<button onclick="top.location.href = 'visualizza.jsp'">visualizza</button>
+		</div><!-- fine content -->
+
+
+		<div class="sidenav">
+			<jsp:include page="barraLaterale.jsp" flush="true"></jsp:include>
+		</div>
+		<div class="clearer">
+			<span></span>
+		</div>
+
+	</div><!-- fine main -->
+
+
+	<div class="footer">
+		Progetto di tecnologie web Dario Leo Mauro sabatino
+		<div class="clearer">
+			<span></span>
+		</div>
+	</div>
+
 </div>
 
-<div id="aside">
-<jsp:include page="barraLaterale.jsp" flush="true"></jsp:include>
-</div>
-<div id="article">
-<p><jsp:include page="visualizza.jsp" flush="true"></jsp:include></p>
-</div>
-
-
-<div id="footer">
-Progetto di tecnologie web Dario Leo Mauro sabatino
-</div>
 
 </body>
 </html>

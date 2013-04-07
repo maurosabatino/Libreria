@@ -5,16 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>cerca</title>
-<link rel="stylesheet" type="text/css" href="stile.css">
+<link rel="stylesheet" type="text/css" href="default.css">
 </head>
-<body>
+
 <form action="/Libreria2/Controller" name="searchForm" method="POST">
-<p>Cerca:</p>
-<p>titolo:<input type="text" name="titolo"></p>
-<p>autore:<input type="text" name="autore"></p>
+<a>titolo:<input type="text" name="titolo"></a>
+<a></a>autore:<input type="text" name="autore">
 <input type="hidden" name="operazione" value="search">
-<p><input type="submit" name ="submit" value="cerca"></p>
+<a><input type="submit" name ="submit" value="cerca"><a>
 </form>
 
-</body>
 </html>

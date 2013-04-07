@@ -5,9 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login page</title>
-<link rel="stylesheet" type="text/css" href="stile.css">
+<link rel="stylesheet" type="text/css" href="default.css">
 </head>
-<body>
+
 <% Utente utente = (Utente)session.getAttribute("utente");
 	if (utente==null){
 	
@@ -27,5 +27,5 @@ Login:
 Ciao <%=user%> sei <%=ruolo %>
 
 <% } %>
-</body>
+
 </html>
