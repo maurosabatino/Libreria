@@ -51,10 +51,10 @@ public class Catalogo {
 		Statement st = conn.createStatement();
 		String out="";
 		ResultSet rs =st.executeQuery("SELECT * FROM LIBRI");
-		out+="<table border=2> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		while(rs.next()){
 			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO") +"</td>";
-			out+="<td><a href=\"Controller?operazione=aggiungialcarrello&id="+rs.getInt("ID")+"\">aggiungi al carrello</a><br><br></td></tr>";
+			out+="<td><button onclick=\"top.location.href = 'Controller?operazione=aggiungialcarrello&id="+rs.getInt("ID")+"'\">aggiungi al carrello</button></td></tr>";
 		}
 		out+="</table>";
 		rs.close(); st.close(); conn.close();
@@ -93,7 +93,7 @@ public class Catalogo {
 
 	public String getVisualizzasearchadmin(){
 		String out="\n lista dei libri cercati:";
-		out+="<table border=2> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		
 		for(int i = 0;i<catalogo.size();i++){
 			if(catalogo.get(i)!=null){
@@ -102,7 +102,8 @@ public class Catalogo {
 				String autore=catalogo.get(i).getAutore();
 				double prezzo=catalogo.get(i).getPrezzo();
 				out+="<tr><td>"+id+"</td><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td>";
-				out+="<td><a href=\"Controller?operazione=rimuovi_libro&id="+id+"\">rimuovi dal cataalogo</a><br><br></td></tr>";
+				out+="<td><button onclick=\"top.location.href = 'Controller?operazione=rimuovi_libro&id="+id+"'\">rimuovi dal catalogo</button></td></tr>";
+				
 			}
 		}
 		out+="</table>";
@@ -110,7 +111,7 @@ public class Catalogo {
 	}
 	public String getVisualizzasearchuser(){
 		String out="\n lista dei libri cercati:";
-		out+="<table border=2> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		
 		for(int i = 0;i<catalogo.size();i++){
 			if(catalogo.get(i)!=null){
@@ -119,7 +120,8 @@ public class Catalogo {
 				String autore=catalogo.get(i).getAutore();
 				double prezzo=catalogo.get(i).getPrezzo();
 				out+="<tr><td>"+id+"</td><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td>";
-				out+="<td><a href=\"Controller?operazione=aggiungialcarrello&id="+id+"\">aggiungi al carrello</a><br><br></td></tr>";
+				out+="<td><button onclick=\"top.location.href = 'Controller?operazione=aggiungialcarrello&id="+id+"'\">aggiungi al carrello</button></td></tr>";
+				
 			}
 		}
 		out+="</table>";
@@ -127,7 +129,7 @@ public class Catalogo {
 	}
 	public String getVisualizzasearch(){
 		String out="\n lista dei libri cercati:";
-		out+="<table border=2> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		
 		for(int i = 0;i<catalogo.size();i++){
 			if(catalogo.get(i)!=null){
@@ -153,12 +155,12 @@ public class Catalogo {
 		Statement st = conn.createStatement();
 		String out="";
 		ResultSet rs =st.executeQuery("SELECT * FROM libri");
-		out+="<table border=2> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		while(rs.next()){
 			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO")+"</td>" ;
 			out += "<td><a href=\"Controller?operazione=rimuovi_libro&id="+rs.getInt("ID")+"\">cancella libro</a><br><br></td></tr>";
 		}
-		out+="</table";
+		out+="</table>";
 		rs.close(); st.close(); conn.close();	
 		return out;
 	}

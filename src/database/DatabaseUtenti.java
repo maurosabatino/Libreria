@@ -31,6 +31,7 @@ public class DatabaseUtenti {
 		Statement st = conn.createStatement();
 		st.executeUpdate("INSERT INTO ACCOUNT(UTENTE,PASSWORD,RUOLO) VALUES('sabawalker','tonino','admin')");
 		st.executeUpdate("INSERT INTO ACCOUNT(UTENTE,PASSWORD,RUOLO) VALUES('dario','tonino','user')");
+		st.executeUpdate("INSERT INTO ACCOUNT(UTENTE,PASSWORD,RUOLO) VALUES('mauro','tonino','user')");
 		st.close();
 		conn.close();
 	}

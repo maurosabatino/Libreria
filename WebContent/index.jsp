@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Index</title>
-<link rel="stylesheet" type="text/css" href="default.css" media="screen"/>
+<link rel="stylesheet" type="text/css" href="default.css"/>
 
 </head>
 <body>
@@ -31,7 +31,7 @@
 		<div class="content"> <!-- inizio content -->
 			<h1>Catalogo dei libri</h1>
 			<p><jsp:include page="visualizza.jsp" flush="true"></jsp:include></p>
-			<button onclick="top.location.href = 'visualizza.jsp'">visualizza</button>
+			
 		</div><!-- fine content -->
 
 

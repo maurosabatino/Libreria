@@ -18,7 +18,7 @@ public class DatabaseLibri {
 			Connection conn = DriverManager.getConnection(url,user,pwd);
 		
 			creaTabella(name, conn, url, user, pwd);
-			//caricaDati(name, conn, url, user, pwd);
+			caricaDati(name, conn, url, user, pwd);
 			mostraTabella(conn, name);
 			
 			conn.close();

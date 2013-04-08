@@ -62,7 +62,7 @@ public class Controller extends HttpServlet {
 		 //operazione di login
 		if(operazione.equals("login")){
 			Utente utente = new Utente();
-			String user = request.getParameter("user");
+			String user = request.getParameter("user").toLowerCase();
 			String password = request.getParameter("password");
 			utente.setUser(user);
 			utente.setPassword(password);
@@ -149,7 +149,7 @@ public class Controller extends HttpServlet {
 			String titolo = (String)request.getParameter("titolo");
 			String autore = (String)request.getParameter("autore");
 			Double prezzo = Double.parseDouble((String)request.getParameter("prezzo"));
-			catalogo.inserisciLibro(titolo, autore, prezzo);
+			catalogo.inserisciLibro(titolo.toLowerCase(), autore.toLowerCase(), prezzo);
 			request.setAttribute("catalogo", catalogo);
 			forward(request,response,"/admin.jsp");
 		}
@@ -165,7 +165,7 @@ public class Controller extends HttpServlet {
 			String titolo = (String)request.getParameter("titolo");
 			String autore = (String)request.getParameter("autore");
 			Double prezzo = Double.parseDouble((String)request.getParameter("prezzo"));
-			catalogo.modificaLibro(id, titolo, autore, prezzo);
+			catalogo.modificaLibro(id, titolo.toLowerCase(), autore.toLowerCase(), prezzo);
 			forward(request,response,"/admin.jsp");
 		}
 		if(operazione.equals("evadi_pre")){
@@ -186,7 +186,7 @@ public class Controller extends HttpServlet {
 			Catalogo catalogo = new Catalogo();
 			String titolo = request.getParameter("titolo");
 			String autore = request.getParameter("autore");
-			catalogo.search(titolo, autore);
+			catalogo.search(titolo.toLowerCase(), autore.toLowerCase());
 			request.setAttribute("catalogo", catalogo);
 			forward(request,response,"/visualizzaCerca.jsp");
 		}

@@ -108,8 +108,8 @@ public class Carrello {
 	}
 	
 	public String getVisualizzacarrello(){
-		String out="\n lista dei libri nel carrello:";
-		out+="<table border=2> <tr><th>Id</th><th>Titolo</th><th>Autore</th><th>Prezzo</th><th>Quantità</th></tr>";
+		String out="<h1>libri nel carrello</h1>";
+		out+="<table id=\"hor-minimalist-b\"> <tr><th>Id</th><th>Titolo</th><th>Autore</th><th>Prezzo</th><th>Quantità</th></tr>";
 		
 		for(int i = 0;i<carrello.size();i++){
 			if(carrello.get(i)!=null){
