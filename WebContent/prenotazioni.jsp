@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="model.*"%>
 <!DOCTYPE html>
 <jsp:useBean id="op" class="model.Catalogo" scope="request" />
 <html>
+<% Utente user = (Utente) session.getAttribute("utente");
+   if (user==null){%>
+<jsp:forward page="/index.jsp" /> 
+<%}else if(user.getRuolo().equals("user")){ %>
+<jsp:forward page="/index.jsp" /> 
+<%} %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Prenotazioni di tutti gli utenti</title>

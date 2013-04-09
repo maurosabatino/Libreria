@@ -1,46 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="model.*"%>
-<!DOCTYPE html >
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login page</title>
-<link rel="stylesheet" type="text/css" href="css/default.css">
-<script type="text/javascript">
-function verifica(modulo){
-	if(nodulo.user.value==""){
-		allert("campo user mancante");
-		modulo.nome.focus();
-		return false;
-	}
-	if(nodulo.password.value==""){
-		allert("campo password mancante");
-		modulo.password.focus();
-		return false;
-	}
-	allert("il modulo è corretto")
-	return true;
-	
+<script language="JavaScript">
+function verificaLogin(modulo)
+{
+// Controlla la presenza dei campi nome 
+if (modulo.user.value == "") {
+alert("Campo -user- mancante.\nModulo non spedito.");
+modulo.nome.focus();
+return false;
+}
+if (modulo.password.value == "") {
+alert("Campo -password- mancante.\nModulo non spedito.");
+modulo.password.focus();
+return false;
+}
+
+
+return true;
 }
 </script>
 </head>
-
 <% Utente utente = (Utente)session.getAttribute("utente");
 	if (utente==null){
 
 	%>
+<body>
+<form action="/Libreria2/Controller"  name="dati" onSubmit="return verificaLogin(this);" method="POST" >
 
-<h1>Login:</h1>
+Nome:
+<br> 
+<input type="text" name="user" size="30">
 
-<form action="/Libreria2/Controller" onSubmit="return verifica(this);" name="loginForm" method="POST">
-<li>nome utente:</li>
-<li><input type="text" name="user"></li>
-<li>password:</li>
-<li><input type="password" name="password"></li>
+password:<br>
+ <input type="password" name="password" size="30">
+
 <input type="hidden" name="operazione" value="login">
-<li><input type="submit" name ="submit" value="Login"></li>
+<br>
+<input type="submit" value="Login">
 </form>
-
 <%}else {
 	String user = utente.getUser();
 	String ruolo=utente.getRuolo();
@@ -48,5 +47,5 @@ function verifica(modulo){
 <h1>Ciao <%=user%> sei <%=ruolo %></h1>
 
 <% } %>
-
+</body>
 </html>

@@ -14,7 +14,6 @@
 	<div class="header">
 		<div class="title">
 			<h1>Libreria</h1>
-			Progetto di tecnologie web
 		</div>
 		<div class="clearer">
 			<span></span>
@@ -31,7 +30,6 @@
 		<div class="content"> <!-- inizio content -->
 			<h1>Catalogo dei libri</h1>
 			<p><jsp:include page="visualizza.jsp" flush="true"></jsp:include></p>
-			
 		</div><!-- fine content -->
 
 

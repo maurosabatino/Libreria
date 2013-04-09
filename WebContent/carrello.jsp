@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="model.Carrello"%>
+    pageEncoding="ISO-8859-1" import="model.*"%>
 <!DOCTYPE html>
+
+<% Utente user = (Utente) session.getAttribute("utente");
+   if (user==null){%>
+<jsp:forward page="/index.jsp" /> 
+<%}%>
  <jsp:useBean id="carrello" scope="session" class="model.Carrello"/>
 
 <html>
@@ -29,6 +34,7 @@
 
 	</div>
 	<div class="main">
+	<div class="content"> <!-- inizio content -->
 		<form action="/Libreria2/Controller" name="compra" method="post">
 			<jsp:getProperty property="visualizzacarrello" name="carrello"/>
 			<p>il totale è: <jsp:getProperty property="totale" name="carrello"/></p>
@@ -36,6 +42,7 @@
 			<p><input type="submit" name ="submit" value="compra"></p>
 		</form>
 		<button onclick="top.location.href = 'user.jsp'">ritorna al catalogo</button>
+		</div>
 		<div class="sidenav">
 			<jsp:include page="barraLaterale.jsp" flush="true"></jsp:include>
 		</div>
@@ -44,6 +51,13 @@
 		</div>
 
 	</div><!-- fine main -->
+	
+	<div class="footer">
+		Progetto di tecnologie web Dario Leo Mauro sabatino
+		<div class="clearer">
+			<span></span>
+		</div>
+	</div>
 </div>
 
 </body>

@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="model.*"%>
 <!DOCTYPE html >
-
+<% Utente user = (Utente) session.getAttribute("utente");
+   if (user==null){%>
+<jsp:forward page="/index.jsp" /> 
+<%}%>
+ 
  <jsp:useBean id="carrello" scope="session" class="model.Carrello"/>
 <html>
 <head>
@@ -40,13 +44,14 @@
 		<div class="clearer">
 			<span></span>
 		</div>
-	<div class="footer">
+	
+</div>
+<div class="footer">
 		Progetto di tecnologie web Dario Leo Mauro sabatino
 		<div class="clearer">
 			<span></span>
 		</div>
 	</div>
-</div>
 </div>
 </body>
 </html>

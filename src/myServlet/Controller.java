@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Carrello;
 import model.Catalogo;
+import model.Libro;
 import model.Utente;
 
 
@@ -79,6 +80,9 @@ public class Controller extends HttpServlet {
 					forward(request, response,"/admin.jsp");
 				}
 			}else{
+				response.setHeader("Cache-Control", "no-cache, no-store");
+				response.setHeader("Pragma", "no-cache");
+				request.getSession().invalidate();
 				forward(request, response,"/index.jsp");
 			}
 		}//fine operazione login
@@ -149,7 +153,7 @@ public class Controller extends HttpServlet {
 			String titolo = (String)request.getParameter("titolo");
 			String autore = (String)request.getParameter("autore");
 			Double prezzo = Double.parseDouble((String)request.getParameter("prezzo"));
-			catalogo.inserisciLibro(titolo.toLowerCase(), autore.toLowerCase(), prezzo);
+			catalogo.inserisciLibro(titolo, autore, prezzo);
 			request.setAttribute("catalogo", catalogo);
 			forward(request,response,"/admin.jsp");
 		}
@@ -165,7 +169,7 @@ public class Controller extends HttpServlet {
 			String titolo = (String)request.getParameter("titolo");
 			String autore = (String)request.getParameter("autore");
 			Double prezzo = Double.parseDouble((String)request.getParameter("prezzo"));
-			catalogo.modificaLibro(id, titolo.toLowerCase(), autore.toLowerCase(), prezzo);
+			catalogo.modificaLibro(id, titolo, autore, prezzo);
 			forward(request,response,"/admin.jsp");
 		}
 		if(operazione.equals("evadi_pre")){

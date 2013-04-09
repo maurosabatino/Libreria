@@ -1,3 +1,5 @@
+@CHARSET "ISO-8859-1";
+
 
 
 /* standard elements */
@@ -11,11 +13,14 @@ a {
 a:hover {
 	color: #C60;
 }
+html{
+	height:90%;
+}
 body {
 	background: #655A46 url(img/bg.gif);
 	color: #543;
 	font: normal 62.5% "Lucida Sans Unicode",sans-serif;
-	line-height: 1.6em;
+	height:90%;
 }
 input {
 	color: #555;
@@ -62,6 +67,10 @@ h1,h2,h3 {
 	background: url(img/bgcontainer.gif) repeat-y;
 	margin: 0 auto;
 	width: 780px;
+	 min-height:100%;
+    height:auto !important; /*per gli altri browser*/
+    height:100%; /*per IE 6*/
+    margin-bottom:-100px;
 }
 
 /* header */
@@ -106,40 +115,14 @@ h1,h2,h3 {
 .main {
 	clear: both;
 	padding: 0 10px 12px 28px;
-}
-.hor-minimalist-b
-{
-	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-	font-size: 12px;
-	background: #fff;
-	margin: 45px;
-	width: 480px;
-	border-collapse: collapse;
-	text-align: left;
-}
-.hor-minimalist-b th
-{
-	font-size: 14px;
-	font-weight: normal;
-	color: #039;
-	padding: 10px 8px;
-	border-bottom: 2px solid #6678b1;
-}
-.hor-minimalist-b td
-{
-	border-bottom: 1px solid #ccc;
-	color: #669;
-	padding: 6px 8px;
-}
-.hor-minimalist-b tbody tr:hover td
-{
-	color: #009;
+	padding-bottom:100px;
 }
 
 /* sub navigation */
 .sidenav {
 	float: right;
 	width: 218px;
+	padding-bottom:100px;
 }
 .sidenav h1 {
 	background: #BCB39F url(img/sidenavh1.gif) repeat-x;
@@ -171,17 +154,13 @@ h1,h2,h3 {
 	background: #D6CCB9;
 	color: #654;
 }
-.sidenav ul p {
-	font-size: 1.2em;
-	padding: 8px 4px 8px 12px;
-	color: #554;
-}
 
 /* content */
 .content {
 	padding-top: 12px;
 	float: left;
 	width: 68%;
+	padding-bottom:100px;
 }
 .content .descr {
 	color: #987E57;
@@ -202,7 +181,6 @@ h1,h2,h3 {
 	margin: 0 auto;
 	text-align: center;
 	width: 760px;
-	float:bottom;
 }
 .footer a {
 	color: #FFD;

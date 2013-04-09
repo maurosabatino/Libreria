@@ -26,7 +26,6 @@ public class Catalogo {
 		this.risultato=risultato;
 	}
 	
-	
 	public String getVisualizzalibri() throws SQLException{
 		String url = "jdbc:derby://localhost:1527/c:/Database;";
 		String user = "app";
@@ -120,7 +119,8 @@ public class Catalogo {
 				String autore=catalogo.get(i).getAutore();
 				double prezzo=catalogo.get(i).getPrezzo();
 				out+="<tr><td>"+id+"</td><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td>";
-				out+="<td><button onclick=\"top.location.href = 'Controller?operazione=aggiungialcarrello&id="+id+"'\">aggiungi al carrello</button></td></tr>";
+				out+="<td><button onclick=\"top.location.href = 'Controller?operazione=aggiungialcarrello&id="+id+"'\">aggiungi al carrello</button></td>";
+				out+="<td><button onclick=\"top.location.href = 'modifica.jsp?id="+id+"'\">modifica libro</button></td></tr>";
 				
 			}
 		}
@@ -158,7 +158,9 @@ public class Catalogo {
 		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		while(rs.next()){
 			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO")+"</td>" ;
-			out += "<td><a href=\"Controller?operazione=rimuovi_libro&id="+rs.getInt("ID")+"\">cancella libro</a><br><br></td></tr>";
+			out+= "<td><button onclick=\"top.location.href = 'Controller?operazione=rimuovi_libro&id="+rs.getInt("ID")+"'\"><img src=\"img\\x.gif\" width=\"20\" height=\"20\" border=\"1\" vspace=\"5\""; 
+			out+="alt=\"invia adesso\" align=\"middle\"></button></td>";
+			out+="<td><button onclick=\"top.location.href ='modifica.jsp?id="+rs.getInt("ID")+"'\">modifica libro</button></td></tr>";
 		}
 		out+="</table>";
 		rs.close(); st.close(); conn.close();	
@@ -186,7 +188,7 @@ public class Catalogo {
 		st.executeUpdate("DELETE FROM LIBRI WHERE ID="+id);
 		st.close(); conn.close();
 	}
-	
+
 	public void modificaLibro(int id,String titolo,String autore, Double prezzo) throws SQLException{
 		String url = "jdbc:derby://localhost:1527/c:/Database;";
 		String user = "app";
@@ -204,6 +206,23 @@ public class Catalogo {
 			 st.executeUpdate(" UPDATE LIBRI SET PREZZO="+prezzo+"WHERE ID="+id); 
 		 }
 		}
+	public Libro cercaLibro(int id) throws SQLException{
+		String url = "jdbc:derby://localhost:1527/c:/Database;";
+		String user = "app";
+		String pwd = "app";
+		Libro libro = new Libro();
+		Connection conn = DriverManager.getConnection(url,user,pwd);
+		Statement st = conn.createStatement();
+		ResultSet rs =st.executeQuery("SELECT * FROM libri WHERE ID ="+id+"");
+		while(rs.next()){
+			libro.setId(id);
+			libro.setTitolo(rs.getString("TITOLO"));
+			libro.setAutore(rs.getString("AUTORE"));
+			libro.setPrezzo(rs.getDouble("PREZZO"));
+		}
+		rs.close(); st.close(); conn.close();
+		return libro;
+	}
 	
 	
 	public String getVisualizzaprenotazioni() throws SQLException{

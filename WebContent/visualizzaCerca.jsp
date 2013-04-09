@@ -57,6 +57,12 @@ if(utente!=null){
 
 	<!-- fine main -->
 	</div>
+	<div class="footer">
+		Progetto di tecnologie web Dario Leo Mauro sabatino
+		<div class="clearer">
+			<span></span>
+		</div>
+	</div>
 </div>
 </body>
 </html>
