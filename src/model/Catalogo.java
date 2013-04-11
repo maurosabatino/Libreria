@@ -36,7 +36,7 @@ public class Catalogo {
 		Statement st = conn.createStatement();
 		String out="";
 		ResultSet rs =st.executeQuery("SELECT * FROM libri");
-		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		while(rs.next()){
 			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO") +"</td></tr>";
 		}
@@ -80,7 +80,7 @@ public class Catalogo {
 	
 	public String getVisualizzasearch(){
 		String out="\n lista dei libri cercati:";
-		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		
 		for(int i = 0;i<catalogo.size();i++){
 			if(catalogo.get(i)!=null){
@@ -106,22 +106,22 @@ public class Catalogo {
 		String pwd = "app";
 		Connection conn = DriverManager.getConnection(url,user,pwd);
 		Statement st = conn.createStatement();
-		String out="";
 		ResultSet rs =st.executeQuery("SELECT * FROM libri");
-		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		String out="<table> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th><th>rimuovi</th><th>modifica</th></tr>";
+		out+="<tbody>";
 		while(rs.next()){
 			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO")+"</td>" ;
-			out+= "<td><button onclick=\"top.location.href = 'Controller?operazione=rimuovi_libro&id="+rs.getInt("ID")+"'\">rimuovi</button><br><br></td>";
-			out+="<td><button onclick=\"top.location.href ='modifica.jsp?id="+rs.getInt("ID")+"'\">modifica</button></td> <br><br></tr>";
+			out+= "<td><button onclick=\"top.location.href = 'Controller?operazione=rimuovi_libro&id="+rs.getInt("ID")+"'\">rimuovi</button></td>";
+			out+="<td><button onclick=\"top.location.href ='modifica.jsp?id="+rs.getInt("ID")+"'\">modifica</button></td></tr>";
 		}
-		out+="</table>";
+		out+="</tbody></table>";
 		rs.close(); st.close(); conn.close();	
 		return out;
 	}
 	
 	public String getVisualizzasearchadmin(){
 		String out="\n lista dei libri cercati:";
-		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		
 		for(int i = 0;i<catalogo.size();i++){
 			if(catalogo.get(i)!=null){
@@ -203,24 +203,24 @@ public class Catalogo {
 		Connection conn = DriverManager.getConnection(url, user, pwd);
 		Statement st = conn.createStatement();
 		ResultSet rs;
-		String prenotazioni = "<table id=\"hor-minimalist-b\"> <tr><th>utente</th><th>Ordine</th><th>Data</th><th>Totale</th></tr>";
+		String prenotazioni = "<table> <tr><th>utente</th><th>Ordine</th><th>Data</th><th>Totale</th></tr>";
 		rs = st.executeQuery("SELECT * FROM PRENOTAZIONI");
 		    
 		while (rs.next()){
 			if((Integer.parseInt(rs.getString("EVASO")))==0 && (Integer.parseInt(rs.getString("RICEVUTO"))==0)){
 				prenotazioni +="<tr> <td>"+rs.getString("Username")+"</td><td>"+rs.getString("ORDINE") +"</td><td> "+ rs.getString("DATA")+"</td><td>"+rs.getDouble("TOTALE")+" Euro</td>";
-				prenotazioni += "<td><a href=\"Controller?operazione=evadi_pre&cod="+rs.getInt("COD")+"\">evadi prenotazione</a><br><br></td></tr>";
+				prenotazioni += "<td><a href=\"Controller?operazione=evadi_pre&cod="+rs.getInt("COD")+"\">evadi prenotazione</a></td></tr>";
 			}else if((Integer.parseInt(rs.getString("EVASO")))==1 && (Integer.parseInt(rs.getString("RICEVUTO"))==1)){
 				prenotazioni +="<tr> <td>"+rs.getString("Username")+"</td><td>"+rs.getString("ORDINE") +"</td><td> "+ rs.getString("DATA")+"</td><td>"+rs.getDouble("TOTALE")+" Euro</td>";
-				prenotazioni += "<td>L'ordine è evaso e ricevuto.<br><br></td>";
-				prenotazioni += "<td><a href=\"Controller?operazione=rimuovi_pre_admin&cod="+rs.getInt("COD")+"\">cancella prenotazione</a><br><br></td></tr>";
+				prenotazioni += "<td>L'ordine è evaso e ricevuto.</td>";
+				prenotazioni += "<td><a href=\"Controller?operazione=rimuovi_pre_admin&cod="+rs.getInt("COD")+"\">cancella prenotazione</a></td></tr>";
 			}
 			else{
 				prenotazioni +="<tr> <td>"+rs.getString("Username")+"</td><td>"+rs.getString("ORDINE") +"</td><td> "+ rs.getString("DATA")+"</td><td>"+rs.getDouble("TOTALE")+" Euro</td>";
-				prenotazioni += "<td>L'ordine è evaso.<br><br></td></tr>";
+				prenotazioni += "<td>L'ordine è evaso.</td></tr>";
 			}
 		} 
-			
+			prenotazioni+="</table>";
 		st.close();
 		conn.close();
 		return prenotazioni;
@@ -258,7 +258,7 @@ public class Catalogo {
 		Statement st = conn.createStatement();
 		String out="";
 		ResultSet rs =st.executeQuery("SELECT * FROM LIBRI");
-		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		while(rs.next()){
 			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO") +"</td>";
 			out+="<td><button onclick=\"top.location.href = 'Controller?operazione=aggiungialcarrello&id="+rs.getInt("ID")+"'\">aggiungi al carrello</button></td></tr>";
@@ -269,7 +269,7 @@ public class Catalogo {
 	}
 	public String getVisualizzasearchuser(){
 		String out="\n lista dei libri cercati:";
-		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		out+="<table> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		
 		for(int i = 0;i<catalogo.size();i++){
 			if(catalogo.get(i)!=null){

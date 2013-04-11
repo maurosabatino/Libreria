@@ -36,10 +36,7 @@
 		<div class="sidenav">
 			<jsp:include page="barraLaterale.jsp" flush="true"></jsp:include>
 		</div>
-		<div class="clearer">
-			<span></span>
-		</div>
-
+		
 	</div><!-- fine main -->
 
 

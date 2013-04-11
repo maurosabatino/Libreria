@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import model.Carrello;
 import model.Catalogo;
-import model.Libro;
 import model.Utente;
 
 
