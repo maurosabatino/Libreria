@@ -26,6 +26,8 @@ public class Catalogo {
 		this.risultato=risultato;
 	}
 	
+	/*-------------------operazioni base--------------------------------------------*/
+	
 	public String getVisualizzalibri() throws SQLException{
 		String url = "jdbc:derby://localhost:1527/c:/Database;";
 		String user = "app";
@@ -42,23 +44,7 @@ public class Catalogo {
 		rs.close(); st.close(); conn.close();	
 		return out;
 	}
-	public String getSelezionalibro() throws SQLException{
-		String url = "jdbc:derby://localhost:1527/c:/Database;";
-		String user = "app";
-		String pwd = "app";
-		Connection conn = DriverManager.getConnection(url,user,pwd);
-		Statement st = conn.createStatement();
-		String out="";
-		ResultSet rs =st.executeQuery("SELECT * FROM LIBRI");
-		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
-		while(rs.next()){
-			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO") +"</td>";
-			out+="<td><button onclick=\"top.location.href = 'Controller?operazione=aggiungialcarrello&id="+rs.getInt("ID")+"'\">aggiungi al carrello</button></td></tr>";
-		}
-		out+="</table>";
-		rs.close(); st.close(); conn.close();
-		return out;
-	}
+	
 	
 	public ArrayList<Libro> search(String titolo, String autore) throws SQLException{
 			String url = "jdbc:derby://localhost:1527/c:/Database;";
@@ -90,43 +76,8 @@ public class Catalogo {
 	}
 	
 
-	public String getVisualizzasearchadmin(){
-		String out="\n lista dei libri cercati:";
-		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
-		
-		for(int i = 0;i<catalogo.size();i++){
-			if(catalogo.get(i)!=null){
-				int id =catalogo.get(i).getId();
-				String titolo=catalogo.get(i).getTitolo();
-				String autore=catalogo.get(i).getAutore();
-				double prezzo=catalogo.get(i).getPrezzo();
-				out+="<tr><td>"+id+"</td><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td>";
-				out+="<td><button onclick=\"top.location.href = 'Controller?operazione=rimuovi_libro&id="+id+"'\">rimuovi dal catalogo</button></td></tr>";
-				
-			}
-		}
-		out+="</table>";
-		return out;
-	}
-	public String getVisualizzasearchuser(){
-		String out="\n lista dei libri cercati:";
-		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
-		
-		for(int i = 0;i<catalogo.size();i++){
-			if(catalogo.get(i)!=null){
-				int id =catalogo.get(i).getId();
-				String titolo=catalogo.get(i).getTitolo();
-				String autore=catalogo.get(i).getAutore();
-				double prezzo=catalogo.get(i).getPrezzo();
-				out+="<tr><td>"+id+"</td><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td>";
-				out+="<td><button onclick=\"top.location.href = 'Controller?operazione=aggiungialcarrello&id="+id+"'\">aggiungi al carrello</button></td>";
-				out+="<td><button onclick=\"top.location.href = 'modifica.jsp?id="+id+"'\">modifica libro</button></td></tr>";
-				
-			}
-		}
-		out+="</table>";
-		return out;
-	}
+
+	
 	public String getVisualizzasearch(){
 		String out="\n lista dei libri cercati:";
 		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
@@ -145,6 +96,8 @@ public class Catalogo {
 		return out;
 	}
 	
+	/*------------------------fine operazioni base------------------------------------------------*/
+	
 	/*-----------------------operazioni di amministrazione---------------------------------------*/
 	
 	public String getVisualizzaamministratore() throws SQLException{
@@ -158,15 +111,33 @@ public class Catalogo {
 		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
 		while(rs.next()){
 			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO")+"</td>" ;
-			out+= "<td><button onclick=\"top.location.href = 'Controller?operazione=rimuovi_libro&id="+rs.getInt("ID")+"'\"><img src=\"img\\x.gif\" width=\"20\" height=\"20\" border=\"1\" vspace=\"5\""; 
-			out+="alt=\"invia adesso\" align=\"middle\"></button></td>";
-			out+="<td><button onclick=\"top.location.href ='modifica.jsp?id="+rs.getInt("ID")+"'\">modifica libro</button></td></tr>";
+			out+= "<td><button onclick=\"top.location.href = 'Controller?operazione=rimuovi_libro&id="+rs.getInt("ID")+"'\">rimuovi</button><br><br></td>";
+			out+="<td><button onclick=\"top.location.href ='modifica.jsp?id="+rs.getInt("ID")+"'\">modifica</button></td> <br><br></tr>";
 		}
 		out+="</table>";
 		rs.close(); st.close(); conn.close();	
 		return out;
 	}
 	
+	public String getVisualizzasearchadmin(){
+		String out="\n lista dei libri cercati:";
+		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		
+		for(int i = 0;i<catalogo.size();i++){
+			if(catalogo.get(i)!=null){
+				int id =catalogo.get(i).getId();
+				String titolo=catalogo.get(i).getTitolo();
+				String autore=catalogo.get(i).getAutore();
+				double prezzo=catalogo.get(i).getPrezzo();
+				out+="<tr><td>"+id+"</td><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td>";
+				out+="<td><button onclick=\"top.location.href = 'Controller?operazione=rimuovi_libro&id="+id+"'\">rimuovi dal catalogo</button></td>";
+				out+="<td><button onclick=\"top.location.href = 'modifica.jsp?id="+id+"'\">modifica libro</button></td></tr>";
+				
+			}
+		}
+		out+="</table>";
+		return out;
+	}
 	
 	
 	public void inserisciLibro(String titolo,String autore,Double prezzo) throws SQLException{
@@ -232,21 +203,21 @@ public class Catalogo {
 		Connection conn = DriverManager.getConnection(url, user, pwd);
 		Statement st = conn.createStatement();
 		ResultSet rs;
-		String prenotazioni = "";
+		String prenotazioni = "<table id=\"hor-minimalist-b\"> <tr><th>utente</th><th>Ordine</th><th>Data</th><th>Totale</th></tr>";
 		rs = st.executeQuery("SELECT * FROM PRENOTAZIONI");
 		    
 		while (rs.next()){
 			if((Integer.parseInt(rs.getString("EVASO")))==0 && (Integer.parseInt(rs.getString("RICEVUTO"))==0)){
-				prenotazioni +="<br> Ordine"+rs.getString("ORDINE") +" Data"+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
-				prenotazioni += "<a href=\"Controller?operazione=evadi_pre&cod="+rs.getInt("COD")+"\">evadi prenotazione</a><br><br>";
+				prenotazioni +="<tr> <td>"+rs.getString("Username")+"</td><td>"+rs.getString("ORDINE") +"</td><td> "+ rs.getString("DATA")+"</td><td>"+rs.getDouble("TOTALE")+" Euro</td>";
+				prenotazioni += "<td><a href=\"Controller?operazione=evadi_pre&cod="+rs.getInt("COD")+"\">evadi prenotazione</a><br><br></td></tr>";
 			}else if((Integer.parseInt(rs.getString("EVASO")))==1 && (Integer.parseInt(rs.getString("RICEVUTO"))==1)){
-				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
-				prenotazioni += "<br>L'ordine è stato evaso ed è anche stato ricevuto.<br><br>";
-				prenotazioni += "<a href=\"Controller?operazione=rimuovi_pre_admin&cod="+rs.getInt("COD")+"\">cancella prenotazione</a><br><br>";
+				prenotazioni +="<tr> <td>"+rs.getString("Username")+"</td><td>"+rs.getString("ORDINE") +"</td><td> "+ rs.getString("DATA")+"</td><td>"+rs.getDouble("TOTALE")+" Euro</td>";
+				prenotazioni += "<td>L'ordine è evaso e ricevuto.<br><br></td>";
+				prenotazioni += "<td><a href=\"Controller?operazione=rimuovi_pre_admin&cod="+rs.getInt("COD")+"\">cancella prenotazione</a><br><br></td></tr>";
 			}
 			else{
-				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
-				prenotazioni += "<br>L'ordine è stato evaso.<br><br>";
+				prenotazioni +="<tr> <td>"+rs.getString("Username")+"</td><td>"+rs.getString("ORDINE") +"</td><td> "+ rs.getString("DATA")+"</td><td>"+rs.getDouble("TOTALE")+" Euro</td>";
+				prenotazioni += "<td>L'ordine è evaso.<br><br></td></tr>";
 			}
 		} 
 			
@@ -278,5 +249,44 @@ public class Catalogo {
 	
 	/*-----------------------fine operazioni di amministrazione----------------------------------------*/
 	
+	/*------------------------operazioni utente---------------------------------------------------------*/
+	public String getSelezionalibro() throws SQLException{
+		String url = "jdbc:derby://localhost:1527/c:/Database;";
+		String user = "app";
+		String pwd = "app";
+		Connection conn = DriverManager.getConnection(url,user,pwd);
+		Statement st = conn.createStatement();
+		String out="";
+		ResultSet rs =st.executeQuery("SELECT * FROM LIBRI");
+		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</th><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		while(rs.next()){
+			out+="<tr><td>"+rs.getInt("ID")+"</td><td> "+ rs.getString("TITOLO") + "</td><td> "+ rs.getString("AUTORE") +"</td> <td> " + rs.getDouble("PREZZO") +"</td>";
+			out+="<td><button onclick=\"top.location.href = 'Controller?operazione=aggiungialcarrello&id="+rs.getInt("ID")+"'\">aggiungi al carrello</button></td></tr>";
+		}
+		out+="</table>";
+		rs.close(); st.close(); conn.close();
+		return out;
+	}
+	public String getVisualizzasearchuser(){
+		String out="\n lista dei libri cercati:";
+		out+="<table id=\"hor-minimalist-b\"> <tr><th>ID</td><th>Titolo</th><th>Autore</th><th>Prezzo</th></tr>";
+		
+		for(int i = 0;i<catalogo.size();i++){
+			if(catalogo.get(i)!=null){
+				int id =catalogo.get(i).getId();
+				String titolo=catalogo.get(i).getTitolo();
+				String autore=catalogo.get(i).getAutore();
+				double prezzo=catalogo.get(i).getPrezzo();
+				out+="<tr><td>"+id+"</td><td> "+ titolo + "</td><td> "+ autore +"</td> <td> " + prezzo +"</td>";
+				out+="<td><button onclick=\"top.location.href = 'Controller?operazione=aggiungialcarrello&id="+id+"'\">aggiungi al carrello</button></td>";
+				
+				
+			}
+		}
+		out+="</table>";
+		return out;
+	}
+	
+	/*----------------------fine operazioni user--------------------------------------------*/
 	
 }

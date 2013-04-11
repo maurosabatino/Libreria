@@ -47,7 +47,7 @@ public class Libro {
 		this.quantità=quantità;
 	}
 	public String toString(){
-		String out=""+id+","+titolo+","+autore+","+prezzo+","+quantità;
+		String out="Libro "+id+", "+titolo+", "+autore+", "+prezzo+", "+quantità+" \n";
 		return out;
 	}
 }

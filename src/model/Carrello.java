@@ -8,10 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Carrello {
-
+	
 	private ArrayList<Libro> carrello; 
 	private double totale; 
 	private String username;
@@ -69,6 +70,7 @@ public class Carrello {
 		}
 		return -1;
 	}
+	
 	public boolean rimuoviLibro(int id) throws SQLException{
 		Libro libro = cercaLibro(id);
 		if(libro!=null){
@@ -77,13 +79,8 @@ public class Carrello {
 					int quantità=carrello.get(i).getQuantità();
 					setTotale(-(libro.getPrezzo()* quantità));
 					carrello.remove(i);
-					
-				}
-				
+				}		
 			}
-			
-			
-			
 			return true;
 		}
 		return false;
@@ -136,7 +133,7 @@ public class Carrello {
 		Connection conn = DriverManager.getConnection(url,user,pwd);
 		Statement st = conn.createStatement();
 		if(carrello!=null){
-			st.executeUpdate("INSERT INTO PRENOTAZIONI (USERNAME, ORDINE, DATA, TOTALE, EVASO,RICEVUTO) VALUES ('"+username+"', '"+toString()+"', '2001/01/01', "+totale+", 0,0)"); 
+			st.executeUpdate("INSERT INTO PRENOTAZIONI (USERNAME, ORDINE, DATA, TOTALE, EVASO,RICEVUTO) VALUES ('"+username+"', '"+toString()+"', '"+data()+"', "+totale+", 0,0)"); 
 			svuota();
 			setTotale(-(getTotale()));
 		}
@@ -152,6 +149,16 @@ public class Carrello {
 			
 		return out;
 	}
+	public String data(){
+		Calendar cal = new GregorianCalendar();
+	    int giorno = cal.get(Calendar.DAY_OF_MONTH);
+	    int mese = cal.get(Calendar.MONTH)+1;
+	    int anno = cal.get(Calendar.YEAR);
+	    int ora = cal.get(Calendar.HOUR_OF_DAY);
+	    int min = cal.get(Calendar.MINUTE);
+	    return (giorno+"/"+mese+"/"+anno+", "+ora+"."+min);
+	}
+	
 	
 	/*operazioni sulle prenotazioni*/
 	public void rimuoviPrenotazioni(int cod,String username) throws SQLException{
@@ -174,23 +181,22 @@ public class Carrello {
 		Connection conn = DriverManager.getConnection(url, user, pwd);
 		Statement st = conn.createStatement();
 		ResultSet rs;
-		String prenotazioni = "";
+		String prenotazioni = "<table id=\"hor-minimalist-b\"> <tr><th>utente</th><th>Ordine</th><th>Data</th><th>Totale</th></tr>";
 		rs = st.executeQuery("SELECT * FROM PRENOTAZIONI WHERE USERNAME='"+username+"'");
-		prenotazioni="Le tue prenotazioni, "+username+"<br><br>";
 		    
 		while (rs.next()){
 			if((Integer.parseInt(rs.getString("EVASO")))==0 && (Integer.parseInt(rs.getString("RICEVUTO"))==0)){
-				prenotazioni +="<br> Ordine"+rs.getString("ORDINE") +" Data"+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
-				prenotazioni += "<a href=\"Controller?operazione=rimuovi_pre&cod="+rs.getInt("COD")+"\">cancella prenotazione</a><br><br>";
+				prenotazioni +="<tr> <td>"+rs.getString("Username")+"</td><td>"+rs.getString("ORDINE") +"</td><td> "+ rs.getString("DATA")+"</td><td>"+rs.getDouble("TOTALE")+" Euro</td>";
+				prenotazioni += "<td><a href=\"Controller?operazione=rimuovi_pre&cod="+rs.getInt("COD")+"\">cancella prenotazione</a><br><br></td></tr>";
 			}else if((Integer.parseInt(rs.getString("EVASO")))==1 && (Integer.parseInt(rs.getString("RICEVUTO"))==0)){
-				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
-				prenotazioni += "<a href=\"Controller?operazione=conferma_condegna&cod="+rs.getInt("COD")+"\">conferma consegna</a><br><br>";
+				prenotazioni +="<tr> <td>"+rs.getString("Username")+"</td><td>"+rs.getString("ORDINE") +"</td><td> "+ rs.getString("DATA")+"</td><td>"+rs.getDouble("TOTALE")+" Euro</td>";
+				prenotazioni += "<td><a href=\"Controller?operazione=conferma_condegna&cod="+rs.getInt("COD")+"\">conferma consegna</a><br><br></td></tr>";
 			}else{
-				prenotazioni +="<br>"+rs.getString("ORDINE") +""+ rs.getString("DATA")+", Totale: "+rs.getDouble("TOTALE")+" euro<br>";
-				prenotazioni += "<br>L'ordine è stato evaso e anche ricevuto.<br><br>";
+				prenotazioni +="<tr> <td>"+rs.getString("Username")+"</td><td>"+rs.getString("ORDINE") +"</td><td> "+ rs.getString("DATA")+"</td><td>"+rs.getDouble("TOTALE")+" Euro</td>";
+				prenotazioni += "<td><br>L'ordine è evaso e ricevuto.<br><br></td></tr>";
 			}
 		} 
-			
+		prenotazioni+="</table>";	
 		st.close();
 		conn.close();
 		return prenotazioni;
