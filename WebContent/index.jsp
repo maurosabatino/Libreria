@@ -15,9 +15,7 @@
 		<div class="title">
 			<h1>Libreria</h1>
 		</div>
-		<div class="clearer">
-			<span></span>
-		</div>
+		
 	</div>
 	<div class="navigation">
 		<jsp:include page="cerca.jsp" flush="true"></jsp:include>

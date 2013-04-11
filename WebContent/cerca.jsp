@@ -10,9 +10,9 @@
 
 <form action="/Libreria2/Controller" name="searchForm" method="POST">
 <a>titolo:<input type="text" name="titolo"></a>
-<a></a>autore:<input type="text" name="autore">
+<a>autore:<input type="text" name="autore"></a>
 <input type="hidden" name="operazione" value="search">
-<a><input type="submit" name ="submit" value="cerca"><a>
+<a><input type="submit" name ="submit" value="cerca"></a>
 </form>
 
 </html>
